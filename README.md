@@ -76,6 +76,7 @@ Para lograrlo basta con conocer la siguiente información:
 
 * Manualmente:
 ```
+$ cd ~/appNode
 $ node server/servidor.js
 ```
 * O como un servicio que se lanza desde el arranque del S.O. 
