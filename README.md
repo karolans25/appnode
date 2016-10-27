@@ -83,7 +83,7 @@ $ node server/servidor.js
 De ambas maneras, se debe configurar las siguientes variables para tener
 éxito en la conexión:
 
-1. **Configuración del servidor.**
+* **Configuración del servidor.**
 
 En 
 ```
@@ -104,7 +104,7 @@ var hostname = '192.168.2.1';   				// Dirección servidor node (web)
 var route_ip = '192.168.2.1';   				// Dirección del enrutador para comando nmap
 ```
 
-2. **Configuración del cliente**
+* **Configuración del cliente**
 
 En:
 
