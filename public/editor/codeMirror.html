@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<title>CodeMirror: Python mode</title>
+<meta charset="utf-8"/>
+
+<link rel="stylesheet" href="depenEdit/lib/codemirror.css">
+<link rel="stylesheet" href="depenEdit/theme/erlang-dark.css">
+<link rel="stylesheet" href="depenEdit/w3.css">
+
+<script src="depenEdit/lib/codemirror.js"></script>
+<script src="depenEdit/addon/edit/matchbrackets.js"></script>
+
+<script src="depenEdit/mode/python.js"></script>
+<script src="depenEdit/addon/selection/active-line.js"></script>
+<style type="text/css">
+  .CodeMirror {border-top: 1px solid #eee; border-bottom: 1px solid #eee; line-height: 1.3; height: 430px}
+    .CodeMirror-linenumbers { padding: 0 8px; }
+</style>
+
+<article>
+
+<div class="w3-btn-group w3-show-inline-block">
+<button class="w3-btn w3-pale-red" >Helps</button>
+<button class="w3-btn w3-pale-yellow" onclick="importCode()">Import from blockly</button>
+<button class="w3-btn w3-indigo" onclick="sendFromEditorToPyb()">Play</button>
+</div>
+
+<textarea id="code" name="code">
+import pyb
+
+def blink():
+ LED = pyb.LED(1)
+ LED.toggle()
+ return
+
+blink()
+
+</textarea>
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    mode: {name: "python",
+            version: 3,
+            scrollbarStyle: "overlay",
+            singleLineStringErrors: false},
+    lineNumbers: true,
+    indentUnit: 4,
+    matchBrackets: true,
+    styleActiveLine: true,
+    theme: "erlang-dark"
+    });
+    function updateCodeMirror(data){ // Pegar codigo en la linea del cursor
+        var cm = editor;
+        var doc = cm.getDoc();
+        var cursor = doc.getCursor(); // gets the line number in the cursor position
+        var line = doc.getLine(cursor.line); // get the line contents
+        var pos = { // create a new object to avoid mutation of the original selection
+            line: cursor.line,
+            ch: line.length - 1 // set the character position to the end of the line
+        }
+        doc.replaceRange('\n'+data+'\n', pos); // adds a new line
+    }
+    /* importCode trae el valor de la variable de bloqkly a traves
+    del frame (iframeBlockly) para escribir en la línea del cursos.
+    */
+    function importCode(){ 
+        var codeFromBlockly = parent.iframeBlockly.copyCode();
+        updateCodeMirror(codeFromBlockly);
+    }
+    function sendFromEditorToPyb(){
+        var cm = editor;
+        var doc = cm.getDoc();
+        var data = doc.getValue();
+        parent.iframeConfig.runOnTelnet(data); //solo ejemplo de envio
+        //console.log(data);
+    }
+</script>
+
+</article>

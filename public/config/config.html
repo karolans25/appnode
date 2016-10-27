@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Configuration</title>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./dependencies/cliente.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="dependencies/w3.css">
+
+</head>
+
+<body class="w3-container">
+
+  <h1 class="w3-text-khaki">Configuration:</h1>
+  Escoge la tarjeta con la que deseas trabajar </p>
+
+
+  <div class="w3-row-padding">
+	<div class="w3-third">
+      <select class="w3-select" name="selector" id="selectCard"></select>
+  	</div>
+    <div>
+      <button class="w3-btn w3-ripple w3-khaki w3-round-xlarge" id="scanner" onclick="return scanner()">Scann Cards</button>
+    </div>
+  </div> <br>
+  <div class="w3-btn-group w3-show-inline-block">
+	  <button class="w3-btn w3-blue" onclick="importCode()">Import</button>
+	  <button class="w3-btn w3-green" onclick="exportCode()">Export</button>
+	  <button class="w3-btn w3-yellow" onclick="cleanText()">Clear</button>
+  </div>
+  Insert the code here:<br>
+
+  <input type="text" id='codeArea' rows="40" cols="40">
+  </input><br>
+  <!--<textarea id='codeArea' rows="40" cols="1000">
+  </textarea><br>-->
+
+</body>
+</html>
+

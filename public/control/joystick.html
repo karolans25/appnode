@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Control's Joystick</title>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="dependencies/w3.css">
+
+<!--<style>
+    html, body {
+      height: 50%;
+      margin: 0;
+    }   
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+      overflow: hidden;
+    }   
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }   
+    table {
+      height: 100%;
+      width: 100%;
+    }   
+    #blocklyArea {
+      height: 99%;
+      background: #fc9;
+      text-align: center;
+    }   
+  </style>
+-->
+</head>
+
+<body class="w3-container w3-black">
+<!--
+<h1 class="w3-text-white">Control's Joystick:</h1>
+Ingrese la función que controla cada botón en la
+pestaña Control's configuration.</p>
+
+<div class="w3-row-padding">
+<p>Hola</h>
+-->
+<style>
+.styleButtonUp {
+    display:scroll;
+        position:fixed;
+        top:0px;
+        left:54px;
+}</style>
+<a class='styleButtonUp' href='#'><img src='imag/buttonGrenArr.png' border="0" onclick="sendFunction(1)" /></a>
+
+<style>
+.styleButtonLeft {
+    display:scroll;
+        position:fixed;
+        top:50px;
+        left:0px;
+}</style>
+<a class='styleButtonLeft' href='#'><img src='imag/buttonGrenIzq.png' border="0" onclick="sendFunction(2)" /></a>
+
+<style>
+.styleButtonRight {
+    display:scroll;
+        position:fixed;
+        top:53px;
+        left:97px;
+}</style>
+<a class='styleButtonRight' href='#'><img src='imag/buttonGrenDer.png' border="0" onclick="sendFunction(3)" /></a>
+
+<style>
+.styleButtonDown {
+    display:scroll;
+        position:fixed;
+        top:98px;
+        left:53px;
+}</style>
+<a class='styleButtonDown' href='#'><img src='imag/buttonGrenAba.png' border="0" onclick="sendFunction(4)" /></a>
+
+<style>
+.styleButtonStop {
+    display:scroll;
+        position:fixed;
+        top:50px;
+        left:50px;
+}</style>
+<a class='styleButtonStop' href='#'><img src='imag/stop.png' border="0" onclick="sendFunction(5)" /></a>
+
+<style>
+div.fixed {
+    position: fixed;
+    top: 10px;
+    left: 150px;
+    width: 150px;
+	height: 130px;
+    border: 3px solid #0066cc;
+}
+</style>
+<div class="fixed">
+</div>
+
+<style>
+.styleCuadrado {
+    display:scroll;
+        position:fixed;
+        top:50px;
+        left:310px;
+}</style>
+<a class='styleCuadrado' href='#'><img src='imag/cuadrado.png' border="0" onclick="sendFunction(6)" /></a>
+
+<style>
+.styleCirculo {
+    display:scroll;
+        position:fixed;
+        top:50px;
+        left:400px;
+}</style>
+<a class='styleCirculo' href='#'><img src='imag/circulo.png' border="0" onclick="sendFunction(7)" /></a>
+
+<style>
+.styleTriangulo {
+    display:scroll;
+        position:fixed;
+        top:10px;
+        left:355px;
+}</style>
+<a class='styleTriangulo' href='#'><img src='imag/triangulo.png' border="0" onclick="sendFunction(8)" /></a>
+
+<style>
+.styleEquis {
+    display:scroll;
+        position:fixed;
+        top:98px;
+        left:355px;
+}</style>
+<a class='styleEquis' href='#'><img src='imag/equis.png' border="0" onclick="sendFunction(9)" /></a>
+
+<style>
+.divSend {
+    position: fixed;
+    top: 150px;
+    left: 150px;
+    width: 300px;
+	height: 25px;
+    border: 3px solid #ff8533;
+}
+</style>
+<div class="divSend">
+</div>
+
+<style>
+.styleSend {
+    display:scroll;
+        position:fixed;
+        top:148px;
+        left:40px;
+}</style>
+<a class='styleSend' href='#'><img src='imag/sendv2.png' border="0" onclick="sendFunction(10)" /></a>
+
+</div>
+</body>
+
+<script>
+function sendFunction(orden){
+    switch(orden){
+        case 1:
+            //console.log("Up");
+            var x = parent.iframeCtrlConf.document.getElementById("up").value;
+            //console.log(x);
+            parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+        case 2:
+            //console.log("left");
+            var x = parent.iframeCtrlConf.document.getElementById("left").value;
+            //console.log(x);
+            parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+        case 3:
+            //console.log("right");
+            var x = parent.iframeCtrlConf.document.getElementById("right").value;
+            //console.log(x);
+            parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+        case 4:
+            //console.log("down");
+            var x = parent.iframeCtrlConf.document.getElementById("down").value;
+            //console.log(x);
+            parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+        case 5:
+            //console.log("stop");
+            var x = parent.iframeCtrlConf.document.getElementById("stop").value;
+            //console.log(x);
+            parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+        case 6:
+            //console.log("butSqua");
+            var x = parent.iframeCtrlConf.document.getElementById("butSqua").value;
+            //console.log(x);
+            parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+        case 7:
+            //console.log("butCirc");
+            var x = parent.iframeCtrlConf.document.getElementById("butCirc").value;
+            //console.log(x);
+            parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+        case 8:
+            //console.log("butTrian");
+            var x = parent.iframeCtrlConf.document.getElementById("butTrian").value;
+            //console.log(x);
+            parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+        case 9:
+            //console.log("butX");
+            var x = parent.iframeCtrlConf.document.getElementById("butX").value;
+            //console.log(x);
+            parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+        case 10:
+            //console.log("butX");
+            //var x = parent.iframeCtrlConf.document.getElementById("butX").value;
+            //console.log(x);
+            //parent.tunelSendFunctionToPyb(x); //This defined in control.js
+        break;
+    }
+}
+</script>
+</html>

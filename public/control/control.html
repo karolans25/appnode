@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Control:</title>
+
+<meta name="viewport" content="width=100%, height=100%">
+<link rel="stylesheet" href="dependencies/w3.css">
+
+<script src="dependencies/control.js"></script>
+
+<!--
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }   
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+      overflow: hidden;
+    }   
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }   
+    table {
+      height: 100%;
+      width: 100%;
+    }   
+    #blocklyArea {
+      height: 99%;
+      background: #fc9;
+      text-align: center;
+    }   
+  </style>
+-->
+
+<body>
+<div class="w3-btn-group w3-show-inline-block">
+  <button class="w3-btn w3-pink" onclick="iframeViewCtrlJoy()">Joystick</button>
+  <button class="w3-btn w3-light-blue" onclick="iframeViewCtrlConf()">Configuration</button>
+</div>
+<!--
+<style>
+.scroll_frame {
+    overflow: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling:touch;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #e0e0e0;
+}
+</style>
+
+<style>
+.my_frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    vertical-align: top;
+}
+</style>
+-->
+<div id="diviCtrlConf" class="scroll_frame"
+style="width:100%; height:750px">
+<iframe name="iframeCtrlConf" class="my_frame" id="iframeCtrlConf"
+src="configJoystick.html" onload="hideCtrlConf()"
+style="width:100%; height:100%"></iframe>
+<!--iframe name="iframeEditor" id="iframeEditor" src="editor/codeMirror.html" width="640" height="480" onload="hideEditor()"></iframe-->
+</div>
+
+<div id="diviCtrlJoy" class="scroll_frame" style="width:480px; height:320px">
+<!--iframe name="iframeBlockly" id="iframeBlockly" src="blockly/blockly.html" width="640" height="480" onload="hideBlockly()"></iframe-->
+<iframe name="iframeCtrlJoy" class="my_frame" id="iframeCtrlJoy" src="joystick.html" onload="hideCtrlJoy()"
+style="width:100%; height:100%"></iframe>
+</div>
+
+</article>
+</html>

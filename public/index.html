@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AppMobile</title>
+
+<meta name="viewport" content="width=device-width, height=device-higth, initial-scale=1">
+<link rel="stylesheet" href="dependencies/w3.css">
+
+<script src="dependencies/main.js"></script>
+
+<!--
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }   
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+      overflow: hidden;
+    }   
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }   
+    table {
+      height: 100%;
+      width: 100%;
+    }   
+    #blocklyArea {
+      height: 99%;
+      background: #fc9;
+      text-align: center;
+    }   
+  </style>
+-->
+
+<body>
+<div class="w3-btn-group w3-show-inline-block">
+ <button class="w3-btn w3-green" onclick="iframeViewBlockly()">Blockly</button>
+ <button class="w3-btn w3-blue" onclick="iframeViewEditor()">Editor</button>
+ <button class="w3-btn w3-purple" onclick="iframeViewControl()">Control</button>
+ <button class="w3-btn w3-khaki" onclick="iframeViewConfig()">Config</button>
+ <button class="w3-btn w3-teal" onclick="iframeViewCard()">Card</button>
+ <a href="guias/build/html/index.html" target="_blank">
+  <button class="w3-btn w3-pink" onclick="iframeViewGuides()">Guides</button>
+ </a>
+</div>
+<!--/header-->
+
+<!--
+<style>
+.scroll_frame {
+    overflow: auto;
+    -webkit-overflow-scrolling:touch;
+    width: 100%;
+    height: 475px;
+    border: 1px solid #e0e0e0;
+}
+</style>
+-->
+
+<style>
+/* CSS general */
+.my_frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    vertical-align: top;
+	overflow: auto;
+	-webkit-overflow-scrolling:touch;
+}
+
+<!--
+/* CSS pantalla 768px o superior */
+@media (min-width: 768px) {
+	.my_frame {
+		width: 700px;
+		height: 500px;
+	} 
+}-->
+</style>
+
+
+<div id="diviEditor" class="scroll_frame" style="width:100%; height:100%;">
+<iframe name="iframeEditor" class="my_frame" id="iframeEditor"
+src="editor/codeMirror.html" onload="hideEditor()" style="width:100%; height:100%;" ></iframe>
+<!--iframe name="iframeEditor" id="iframeEditor" src="editor/codeMirror.html" width="640" height="480" onload="hideEditor()"></iframe-->
+</div>
+
+<div id="diviBlockly" class="scroll_frame" style="width:100%; height:100%;">
+<!--iframe name="iframeBlockly" id="iframeBlockly" src="blockly/blockly.html" width="640" height="480" onload="hideBlockly()"></iframe-->
+<iframe name="iframeBlockly" class="my_frame" id="iframeBlockly" src="blockly/blockly.html" onload="hideBlockly()"
+style="width:100%;"></iframe>
+</div>
+
+<div id="diviControl" class="scroll_frame" style="width:100%; height:100%;">
+<!--iframe name="iframeBlockly" id="iframeBlockly" src="blockly/blockly.html" width="640" height="480" onload="hideBlockly()"></iframe-->
+<iframe name="iframeControl" class="my_frame" id="iframeControl" src="control/control.html" onload="hideControl()" style="width:100%; "></iframe>
+</div>
+
+<div id="diviConfig" class="scroll_frame" style="width:100%; height:100%;">
+<!--iframe name="iframeConfig" id="iframeConfig" src="config/config.html" width="640" height="480" onload="hideConfig()"></iframe-->
+<iframe name="iframeConfig" class="my_frame" id="iframeConfig"
+src="config/config.html" onload="hideConfig()" style="width:100%; "></iframe>
+</div>
+
+<div id="diviCard" class="scroll_frame" style="width:100%; height:100%; ">
+<!--iframe name="iframeCard" class="my_frame" id="iframeCard" src="dependencies/card.html"  onload="hideCard()"></iframe-->
+<iframe name="iframeCard" class="my_frame" id="iframeCard"
+src="dependencies/card.html" onload="hideCard()" style="width:100%; height:100%;"></iframe>
+</div>
+
+<div id="diviGuides" class="scroll_frame" style="width:100%; height:100%; ">
+<!--iframe name="iframeCard" class="my_frame" id="iframeCard" src="dependencies/card.html"  onload="hideCard()"></iframe-->
+<iframe name="iframeGuides" class="my_frame" id="iframeGuides"
+src="dependencies/guias.html" onload="hideGuides()" style="width:100%; height:100%;"></iframe>
+</div>
+
+
+</body>
+</html>
