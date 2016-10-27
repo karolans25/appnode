@@ -36,6 +36,7 @@ Para clonar el repositorio basta con ejecutar el siguiente comando:
 ```
 $ cd ~/
 $ git clone https://johnnycubides@bitbucket.org/pinguinotux/appnode.git
+$ mv appnode appNode
 ```
 
 ## Instalación de nodeJS: Enlaces simbólicos ##
@@ -98,6 +99,7 @@ Cambiar el valor de las siguientes variables por las ya conocidas.
 ```
 var hostname = '192.168.2.1';   				// Dirección servidor node (web)
 ```
+
 ```
 var route_ip = '192.168.2.1';   				// Dirección del enrutador para comando nmap
 ```
@@ -105,6 +107,7 @@ var route_ip = '192.168.2.1';   				// Dirección del enrutador para comando nma
 2. **Configuración del cliente**
 
 En:
+
 ```
 nano appNode/public/config/dependencies/cliente.js
 ```
@@ -142,11 +145,15 @@ Cuando se haya iniciado el S.O. pude comprobar que se está ejecutando el servic
 ```
 # service blocklyMicropython status
 ```
+
 Puede detener el servicio
+
 ```
 service blocklyMicropython stop
 ```
+
 Puede reiniciarlo manualmente
+
 ````
 # service blocklyMicropython start
 ```
@@ -160,6 +167,7 @@ ip_hostname:1522
 ```
 
 Ejemplo:
+
 ```
 192.168.2.1:1522
 ```
@@ -167,4 +175,5 @@ Ejemplo:
 Atentamente:
 
 Carolina Pulido
+
 Johnny Cubides
