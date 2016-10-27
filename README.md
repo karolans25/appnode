@@ -113,7 +113,7 @@ En:
 nano appNode/public/config/dependencies/cliente.js
 ```
 
-Cambiar el valor de la siguiente variable por las ya conocida.
+Cambiar el valor de la siguiente variable por la ya conocida.
 
 ```
 var hostname = '192.168.2.1';					// Dirección servidor node (web)
