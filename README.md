@@ -154,7 +154,7 @@ service blocklyMicropython stop
 
 Puede reiniciarlo manualmente
 
-````
+```
 # service blocklyMicropython start
 ```
 
