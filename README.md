@@ -35,7 +35,7 @@ Para clonar el repositorio basta con ejecutar el siguiente comando:
 
 ```
 $ cd ~/
-$ git clone https://johnnycubides@bitbucket.org/pinguinotux/appnode.git
+$ git clone https://bitbucket.org/pinguinotux/appnode.git
 $ mv appnode appNode
 ```
 
