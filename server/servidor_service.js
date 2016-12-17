@@ -18,10 +18,11 @@ var serial_port = "";
 //var hostname = '10.203.166.183';
 //var hostname = '192.168.2.3';
 //var hostname = '192.168.1.62';	// Dirección servidor node (web)
+//var hostname = '192.168.1.100';	// Dirección servidor node (web)
 var hostname = '192.168.2.1';	// Dirección servidor node (web)
 var port = 1522;		// Puerto de escucha del servidor node	
-//var route_ip = '192.168.1.1'; 	// Dirección del enrutador para comando nmap
 var route_ip = '192.168.2.1'; 	// Dirección del enrutador para comando nmap
+//var route_ip = '192.168.2.1'; 	// Dirección del enrutador para comando nmap
 var esps = [];
 
 //---------------------------------------------------------------
@@ -125,7 +126,6 @@ function scanConnected( ){
 	exec('rm '+path_server+'server/cards.txt', function(error, stdout, stderr){
 		if (error !== null){console.log('exec error: ' + error);}
 	});
-	var datos = [];
 	esps = [];
 	exec(`nmap -sP ${route_ip}-254`, function(error, stdout, stderr){
 		if( error !== null) {				
@@ -144,12 +144,10 @@ function scanConnected( ){
 				var indexInMac = elem.indexOf('Address')+9;
 				var indexEndMac = elem.indexOf(' ', indexInMac);
 				if(elem.substring(indexInMac, indexEndMac).length == 17){
-					count ++;
-					var device = {	name: `${aliases[index]}`,
+					var device = {	name: `Dispositivo${index}`,
 									ip: elem.substring(indexInIp, indexEndIp-1),
 									mac: elem.substring(indexInMac, indexEndMac)
 					};
-					datos.push(device);
 					exec('echo \' ' + device.name + '\t' + device.ip + '\t' + device.mac + ' \' >> '+path_server+'server/devices.txt', function(error, stdout, stderr){
 						if( error !== null) {				
 							console.log('exec error: ' + error);
@@ -157,9 +155,14 @@ function scanConnected( ){
 					});
 					exec(`${path_server}server/isESP.sh ${device.ip} 3335`, function(error, stdout, stderr){ 
 						if (error == null){
-							esps.push(device);			
-							console.log(`Card: ${device.name}, ip: ${device.ip}`);
-							exec('echo \' ' + device.name + '\t' + device.ip + '\t' + device.mac + ' \' >> '+path_server+'server/cards.txt', function(error, stdout, stderr){
+							var isCard = { 	name: `${aliases[count]}`,
+											ip: device.ip,
+											mac: device.mac
+							};
+							count ++;
+							esps.push(isCard);			
+							console.log(`Card: ${isCard.name}, ip: ${isCard.ip}`);
+							exec('echo \' ' + isCard.name + '\t' + isCard.ip + '\t' + isCard.mac + ' \' >> '+path_server+'server/cards.txt', function(error, stdout, stderr){
 								if( error !== null) {				
 									console.log('exec error: ' + error);
 								}
@@ -169,7 +172,7 @@ function scanConnected( ){
 				}
 			});
 		}
-		console.log(`\tSe encontraron ${datos.length} dispositivos conectados.`); 
+		console.log(`\tLas tarjetas conectadas son:`); 
 	});
 }
 
