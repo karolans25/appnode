@@ -173,9 +173,9 @@ Ejemplo:
 192.168.2.1:1522
 ```
 
-# En Desarrollo #
+# En desarrollo #
 
-![En desarrollo](https://bytebucket.org/pinguinotux/appnode/raw/b0dece831d135896bedf6f3372e7f570e7b14829/tareas.png)
+![En desarrollo](https://bytebucket.org/pinguinotux/appnode/raw/fed1877c7339f7be5ed2a3f686d77df3e142f5c1/tareas.png)
 
 Atentamente:
 
