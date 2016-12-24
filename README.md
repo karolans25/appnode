@@ -179,6 +179,8 @@ Ejemplo:
 
 Atentamente:
 
-Carolina Pulido
+Carolina Pulido crpulidog@unal.edu.co
 
-Johnny Cubides
+Johnny Cubides  jgcubidesc@unal.edu.co
+
+Universidad Nacional
