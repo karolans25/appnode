@@ -75,10 +75,10 @@ function taskstm()
 	local command = string.gsub(table.remove(stm,1), '\r',"")
 	if command == "TSW" then
 		local key = string.gsub(table.remove(stm,1), '\r',"")
-		local datan = table.getn(stm)
+		local datan = table.getn(stm)/2
 		local datasSend = ""
 		for i = 1, datan do
-			datasSend = datasSend..'&field'..i..'='..string.gsub(table.remove(stm,1),'\r',"")
+			datasSend = datasSend..'&field'..string.gsub(table.remove(stm,1),'\r',"")..'='..string.gsub(table.remove(stm,1),'\r',"")
 		end
 		thingspeak(key,datasSend)
 	elseif command == "MQTT_INIT" then
