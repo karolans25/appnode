@@ -7,11 +7,12 @@
   <script src="dependencies/blocks_compressed.js"></script>
   <script src="dependencies/python_compressed.js"></script>
   <script src="msg/js/es.js"></script>
+  <script src="./modulesMicropython/iot.js"></script>
   <script src="./modulesMicropython/gpio.js"></script>
-  <script src="./modulesMicropython/reto.js"></script>
   <script src="./modulesMicropython/actuadores.js"></script>
   <script src="./modulesMicropython/sensores.js"></script>
   <script src="./modulesMicropython/temporizadores.js"></script>
+  <script src="./modulesMicropython/configure.js"></script>
 <meta name="viewport" content="width=device-width,
 height=520px, initial-scale=1">
 <link rel="stylesheet" href="dependencies/w3.css">
@@ -355,15 +356,37 @@ height=520px, initial-scale=1">
     <category name="Variables" colour="330" custom="VARIABLE"></category>
     <category name="Funciones" colour="290" custom="PROCEDURE"></category>
     <sep></sep>
-    <category id="misPines" name="Pines" colour="210">
-      <block type='gpio_mode'></block>
+    <category id="iot" name="IOT" colour="210">
+      <block type='start_iot'></block>
+      <block type='task_iot'></block>
+      <block type='mqtt_init'>
+          <value name='broker'>
+          <shadow type="text">
+          </shadow>
+          </value>
+          <value name='port'>
+          <shadow type="text">
+          </shadow>
+          </value>
+          <value name='id'>
+          <shadow type="text">
+          </shadow>
+          </value>
+      </block>
+      <block type='mqtt_pub'></block>
+      <block type='mqtt_sub'></block>
+      <block type='mqtt_topic'></block>
+      <block type='write_thingspeak'></block>
+      <block type='field_thingspeak'></block>
+    </category>
+    <category id="misPines" name="Pines" colour="230">
+      <block type='create_pin'></block>
       <block type='gpio_write'></block>
       <block type='gpio_read'></block>
-      <block type='pin_digital'></block>
-      <block type='gpio_write_dac'></block>
-      <block type='gpio_read_adc'></block>
-      <block type='pin_analogo'></block>
-      <block type='pin_analogo_out'></block>
+      <block type='library_adc'></block>
+      <block type='adc_create'></block>
+      <block type='adc_read'></block>
+      <block type='library_dac'></block>
     </category>
     <category id="misActuadores" name="Actuadores" colour="27">
       <block type='init_movil'></block>
@@ -388,21 +411,11 @@ height=520px, initial-scale=1">
       <block type='temporizador_millis'></block>
       <block type='temporizador_micro'></block>
     </category>
-    <category id="Movimientos" name="Movimientos" colour="180">
-      <block type='avanzar_t'></block>
-      <block type='retroceder_t'></block>
-      <block type='izquierda_t'></block>
-      <block type='derecha_t'></block>
+    <category type='com' name="Comunicación" colour="210">
+      <block type='start_config'></block>
+      <block type='task_config'></block>
+      <block type='wifi_sta'></block>
     </category>
-    <category id="Sensor" name="Sensor" colour="285">
-      <block type='ultra_d'></block>
-    </category>
-    <category id="start" name="Start" colour="65">
-     <block type='start_reto'></block>
-     <block type='function_reto'></block>
-     <block type='blink'></block>
-    </category>
-  </xml>
   </xml>
 
   <script>

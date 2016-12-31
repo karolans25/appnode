@@ -21,7 +21,7 @@ Blockly.Blocks['temporizador_sec'] = {
 Blockly.Python['temporizador_sec'] = function(block) {
   var value_sec = Blockly.Python.valueToCode(block, 'sec', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = 'pyb.delay('+value_sec+'*1000)\n';
+  var code = 'pyb.delay(int('+value_sec+'*1000))\n';
   return code;
 };
 
@@ -49,7 +49,7 @@ Blockly.Blocks['temporizador_millis'] = {
 Blockly.Python['temporizador_millis'] = function(block) {
   var value_millis = Blockly.Python.valueToCode(block, 'millis', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = 'pyb.delay('+value_millis+')\n';
+  var code = 'pyb.delay(int('+value_millis+'))\n';
   return code;
 };
 
@@ -77,7 +77,7 @@ Blockly.Blocks['temporizador_micro'] = {
 Blockly.Python['temporizador_micro'] = function(block) {
   var value_micro = Blockly.Python.valueToCode(block, 'micro', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = 'pyb.udelay('+value_micro+')\n';
+  var code = 'pyb.udelay(int('+value_micro+'))\n';
   return code;
 };
 

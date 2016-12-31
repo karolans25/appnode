@@ -107,7 +107,8 @@ function runTelnet(dataIn){
 	console.log(dataIn.name);
 	console.log(dataIn.cardIp);
 	console.log(dataIn.cardMac);
-	exec(`${path_server}server/runMain.sh ${dataIn.cardIp} 3335 ${path_server}server/${dataIn.name}`, function(error, stdout, stderr){
+	//exec(`${path_server}server/runMain.sh ${dataIn.cardIp} 3335 ${path_server}server/${dataIn.name}`, function(error, stdout, stderr){
+	exec(`${path_server}server/runMain.py ${dataIn.cardIp} 3335 ${path_server}server/${dataIn.name}`, function(error, stdout, stderr){
 		if( error !== null) {				
 			console.log('exec error: ' + error);
 		}
