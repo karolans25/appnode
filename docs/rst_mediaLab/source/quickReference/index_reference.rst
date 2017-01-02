@@ -10,3 +10,4 @@ Referencia Rápida
         switchled.rst
         analogo.rst
         mqtt.rst
+        thingspeak.rst
