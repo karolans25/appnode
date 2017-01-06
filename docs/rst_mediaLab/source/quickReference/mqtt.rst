@@ -71,7 +71,7 @@ la explicación será realizada a partir de un ejemplo:
 
 Se puede pensar entonces, que los dispositivos tendrán entre ellos un **"chat"** el cual permite
 que **"las cosas"** hablen entre ellas. Si pensamos un poco más afuera de lo que se ha mencionado,
-se pude pensar que una máquina le puede dar una orden a otra para que cambie su estado y entonces
+se puede pensar que una máquina le puede dar una orden a otra para que cambie su estado y entonces
 los mensajes no solo serán informativos, sino tomas de decisiones en sistemas máquina-máquina donde
 poco o nada habrá intervención del hombre.
 
@@ -83,6 +83,18 @@ Iniciar clientes MQTT
         .. image:: imag/init_mqtt_client.png
 
 
+1. Todas las tareas que requieran de IOT necesitan de éste bloque, éste bloque debe ser
+   iniciado una única vez por programa.
+
+2. El bloque IOT es responsable de ejecutar tareas de Internet, además, de otras configuraciones.
+   Adicional, éste bloque tiene una pestaña de control de velocidad la cual controla y sincroniza
+   la comunicación entre el esp y el stm, las razones de cambiar la velocidad serán tenidas en
+   cuenta por el programador según él note el rendimiento.
+
+3. El bloque **Iniciar MQTT** es responsable de hacer el enlace con el Broker, se requiere conocer
+   del Broker la dirección IP **3.1**, el puerto por donde escucha **3.2**, un identificador del dispositivo que
+   solicita la conexión **3.3**. Nótese en la imagen que el bloque luego de estar diligenciado es usado
+   por IOT **2** para pasarle los parámetros al esp responsable de la comunicación Wifi.
 
 MQTT Publicar
 +++++++++++++
@@ -90,12 +102,35 @@ MQTT Publicar
 
         .. image:: imag/mqtt_pub.png
 
+1. Las publicaciones no requieren tantos bloques como lo requiere una suscripción. En éste ejemplo se publicará
+   mensajes con el asusto *medialab2/led* instintivamente el asunto indica que medialab2 tiene un led, al notar 
+   en el bloque  **Publicar MQTT** **1.1** el asunto **1.2** será el mismo para las dos publicaciones, el cambio
+   estará en el mensaje **1.3** que inicialmente pide que el led de medialab2 esté en su estado encendido **ON**, 
+   en la segunda publicación **1.4** se solicita apagar el led **OFF**.
 
 MQTT Suscribir
 ++++++++++++++
 
+Una suscripción requiere más bloques que una publicación pero no por eso es más compleja.
+
 
         .. image:: imag/mqtt_sub.png
 
+1. Como en la publicación, la suscripción requiere el asunto, para completar el ejemplo, se suscribirá
+   a **medialab2** para atender las ordenes que puedan venir de otros dispositivos como es el caso de
+   **medialab1**.
+
+2. Éste bloque permite que medialab2 se suscriba a diferentes asuntos los cuales serán usados por el bloque **IOT**
+   capaz de comunicar al esp la tarea a ejecutar. Nótese también que éste bloque contiene escrito en su 
+   cuerpo **mqtt_sub(a,m)** lo cual en el lenguaje de *Python* es una función. Se explicará a continuación el porqué:
+   *medialab2* está suscrito a mensajes y los recibirá cuando sean publicados, pero para que no solo sea información,
+   sino que se convierta en algo útil para tomar decisiones, **esp** llamará la función **mqtt_sub(asunto,mensaje)**
+   del stm y adicionalmente le entregará la publicación recibida para que tome decisiones a partir del asunto y
+   del mensaje.
+
+3. Éste bloque permite que el dispositivo se suscriba a un asunto, se puden llamar varios asuntos para suscribirse,
+   por ahora se puede suscribir a tres diferentes asuntos.
 
         .. image:: imag/mqtt_sub_fun.png
+
+
