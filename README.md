@@ -181,7 +181,7 @@ Ejemplo:
 
 # En desarrollo #
 
-![En desarrollo](https://bytebucket.org/pinguinotux/appnode/raw/ada78c68cd49232a311968b4dcf599fa1ad941af/tareas.png)
+![En desarrollo](https://bytebucket.org/pinguinotux/appnode/raw/a168dae6347d5567f32150198286f65717bf1297/tareas.png)
 
 Atentamente:
 
