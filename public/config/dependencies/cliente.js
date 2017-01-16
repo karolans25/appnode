@@ -12,6 +12,10 @@ socket.on('scanList', function(data){
 	window.alert("Lista de tarjetas actualizada.");
 });
 
+socket.on('fileLoaded', function(){
+	window.alert("Se ha cargado correctamente el archivo.");
+});
+
 //---------------------------------------------------------
 //		FUTCION IMPORT EXPORT
 //---------------------------------------------------------
