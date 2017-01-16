@@ -13,7 +13,7 @@ socket.on('scanList', function(data){
 });
 
 socket.on('fileLoaded', function(){
-	window.alert("Se ha cargado correctamente el archivo.");
+	window.alert("Se ha cargado correctamente el programa.");
 });
 
 //---------------------------------------------------------
