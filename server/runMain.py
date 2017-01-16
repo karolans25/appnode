@@ -1,14 +1,16 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
-# python fileToSendSTM.py archivo.py delay(seconds) ip port 
+# python fileToSendSTM.py ip port archivo.py 
 
-import sys, serial, time, socket
+#import sys, serial, time, socket
+import sys, time, socket
 
-nameFile = sys.argv[3]
-timeDelay = float(0.001)
 ip = sys.argv[1]
 port = int(sys.argv[2])
+nameFile = sys.argv[3]
+timeDelay = float(0.05) 
+#La velocidad del delay debe estar entre 30 y 100 [ms]
 
 s = socket.socket()
 s.connect((ip, port))
