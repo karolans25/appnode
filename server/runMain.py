@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
-# python fileToSendSTM.py ip port archivo.py 
+# python runMain.py ip port archivo.py 
 
 #import sys, serial, time, socket
 import sys, time, socket
@@ -18,11 +18,13 @@ s.connect((ip, port))
 def main():
     s.send('\r')
     time.sleep(0.2) # Delay for 200mS
+    s.send('\x04')  # Start mode paste
     with open(nameFile) as fp: 
         for line in fp:
             s.send(line+'\r')
             time.sleep(timeDelay)
             print(line)
+    s.send('\x04')  # Execute
 
 main()
 s.close()
