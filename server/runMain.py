@@ -18,7 +18,7 @@ s.connect((ip, port))
 def main():
     s.send('\r')
     time.sleep(0.2) # Delay for 200mS
-    s.send('\x04')  # Start mode paste
+    s.send('\x05')  # Start mode paste
     with open(nameFile) as fp: 
         for line in fp:
             s.send(line+'\r')
