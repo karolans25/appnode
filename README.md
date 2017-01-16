@@ -129,10 +129,16 @@ el directorio */etc/init.d* como sigue:
 # cp ~/appNode/blocklyMicropython /etc/init.d/
 ```
 
-Por último dar permisos de ejecuación
+Ahora es necesario dar permisos de ejecuación
 
 ```
 # chmod +x /etc/init.d/blocklyMicropython
+```
+
+Finalmente se debe habilitar el servicio para que se inicie con el boot
+
+```
+# update-rc.d blocklyMicropython defaults
 ```
 
 Puede reiniciar la raspberry con el siguiente comando.
