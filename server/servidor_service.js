@@ -78,7 +78,9 @@ io.on('connection', function(socket){
 	
 	socket.on('runTelnet', function(data){
 		runTelnet(data);
-		socket.emit('fileLoaded');
+		setTimeout( function(){
+			socket.emit('fileLoaded');
+		}, 5000);
 	});
 
 	socket.on('scanner', function(){
