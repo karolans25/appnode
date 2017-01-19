@@ -23,10 +23,11 @@ no lo requieren.
 * telnet
 * nmap
 * expect
+* mosquitto
 
 Instalación desde repositorios:
 ```
-# apt-get install git telnet nmap expect
+# apt-get install git telnet nmap expect mosquitto
 ```
 
 ## Clonación del repositorio appNode #
@@ -146,7 +147,7 @@ Puede reiniciar la raspberry con el siguiente comando.
 # shutdown -r now
 ```
 
-Cuando se haya iniciado el S.O. pude comprobar que se está ejecutando el servicio:
+Cuando se haya iniciado el S.O. puede comprobar que se está ejecutando el servicio:
 
 ```
 # service blocklyMicropython status
