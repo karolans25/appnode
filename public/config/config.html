@@ -24,10 +24,20 @@
     <div>
       <button class="w3-btn w3-ripple w3-khaki w3-round-xlarge" id="scanner" onclick="return scanner()">Scann Cards</button>
     </div>
-    <div class="w3-panel w3-card-4 w3-teal w3-round-xlarge"
-	id="cardsInfo"><p>Info: </p></div>
-    </p>
-    <br>
+  </div>
+
+<br>
+<br>
+<br>
+
+    <div class="w3-panel w3-card-4 w3-teal w3-round-xlarge " style="width:90%" 
+	id="cardsInfo"><p>Info: </p>
+ 	<div class="w3-row-padding">
+	   <textarea style="resize: horizontal;" id="scannedCards" rows="2" cols="50"></textarea><br><br>
+	</div>
+</div>
+<br>
+<br>
 	<div class="w3-btn-group w3-show-inline-block">
 	  <button class="w3-btn w3-blue" onclick="importCode()">Import</button>
 	  <button class="w3-btn w3-green" onclick="exportCode()">Export</button>

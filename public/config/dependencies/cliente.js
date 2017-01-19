@@ -1,4 +1,4 @@
-var hostname = '192.168.2.4';
+var hostname = '192.168.2.1';
 //var hostname = '192.168.1.62';
 
 var socket = io.connect(`http://${hostname}:1522`, {'forceNew': true});
@@ -13,7 +13,7 @@ socket.on('scanList', function(data){
 });
 
 socket.on('fileLoaded', function(){
-	window.alert("Se ha cargado correctamente el programa.");
+	//window.alert("Se ha cargado correctamente el programa.");
 });
 
 //---------------------------------------------------------
@@ -51,9 +51,9 @@ function scanningList(datos){
 	datos.map(function(elem, index){
 		var cardOption = document.createElement('option');
 		cardOption.textContent = `${elem.name}`;
-		var textCards = document.getElementById("cardsInfo");
+		var textCards = document.getElementById("scannedCards");
 		cardOption.value = `${elem.name}\t${elem.mac}\t${elem.ip}`;
-		textCards.value = textCards.value + cardOption.value;
+		textCards.value += cardOption.value + '\n';
 		cardPicker.appendChild(cardOption);
 		console.log(index);
 		console.log(cardOption.textContent);
