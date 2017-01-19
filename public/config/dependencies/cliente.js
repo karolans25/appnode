@@ -1,4 +1,4 @@
-var hostname = '192.168.2.1';
+var hostname = '192.168.2.4';
 //var hostname = '192.168.1.62';
 
 var socket = io.connect(`http://${hostname}:1522`, {'forceNew': true});
@@ -51,7 +51,9 @@ function scanningList(datos){
 	datos.map(function(elem, index){
 		var cardOption = document.createElement('option');
 		cardOption.textContent = `${elem.name}`;
+		var textCards = document.getElementById("cardsInfo");
 		cardOption.value = `${elem.name}\t${elem.mac}\t${elem.ip}`;
+		textCards.value = textCards.value + cardOption.value;
 		cardPicker.appendChild(cardOption);
 		console.log(index);
 		console.log(cardOption.textContent);
