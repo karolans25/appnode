@@ -57,7 +57,7 @@ Blockly.Python['task_iot'] = function(block) {
   var dropdown_wait = block.getFieldValue('wait');
   var value_command = Blockly.Python.valueToCode(block, 'command', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = 'command('+value_command+','+dropdown_wait+')\n';
+  var code = 'command('+value_command+','+dropdown_wait+')\npyb.delay(50)\n'; // Un pequelo delay para sincronizacion 
   return code;
 };
 

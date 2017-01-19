@@ -11,7 +11,7 @@ var serverHttp = require('http').Server(app);
 var io = require('socket.io')(serverHttp);
 var fs = require('fs');
 var exec = require('child_process').exec;
-//var path_server = '/home/pi/appNode/';
+//var path_server = '/home/pi/appnode/';
 var path_server = './';
 
 var serial_port = "";

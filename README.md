@@ -36,7 +36,6 @@ Para clonar el repositorio basta con ejecutar el siguiente comando:
 ```
 $ cd ~/
 $ git clone https://bitbucket.org/pinguinotux/appnode.git
-$ mv appnode appNode
 ```
 
 ## Instalación de nodeJS: Enlaces simbólicos ##
@@ -48,14 +47,14 @@ de **node** y **npm**.
 ### Enlace simbólico para node ###
 
 ```
-$ cd ~/appNode/node-v6.3.1-linux-armv7l/bin/
+$ cd ~/appnode/node-v6.3.1-linux-armv7l/bin/
 # ln -s `pwd`/node /usr/bin/node
 ```
 
 ### Enlace simbólico para npm ###
 
 ```
-$ cd ~/appNode/node-v6.3.1-linux-armv7l/bin/
+$ cd ~/appnode/node-v6.3.1-linux-armv7l/bin/
 # ln -s `pwd`/npm /usr/bin/npm
 ```
 
@@ -76,7 +75,7 @@ Para lograrlo basta con conocer la siguiente información:
 
 * Manualmente:
 ```
-$ cd ~/appNode
+$ cd ~/appnode
 $ node server/servidor.js
 ```
 * O como un servicio que se lanza desde el arranque del S.O. 
@@ -88,11 +87,11 @@ De ambas maneras, se debe configurar las siguientes variables para tener
 
 En 
 ```
-nano ~/appNode/server/servidor.js				// Si desea un lazamiento manual
+nano ~/appnode/server/servidor.js				// Si desea un lazamiento manual
 ```
 y/o
 ```
-nano ~/appNode/server/servidor_service.js		// Si desea un lanzamiento automático
+nano ~/appnode/server/servidor_service.js		// Si desea un lanzamiento automático
 ```
 
 Cambiar el valor de las siguientes variables por las ya conocidas.
@@ -110,7 +109,7 @@ var route_ip = '192.168.2.1';   				// Dirección del enrutador para comando nma
 En:
 
 ```
-nano appNode/public/config/dependencies/cliente.js
+nano appnode/public/config/dependencies/cliente.js
 ```
 
 Cambiar el valor de la siguiente variable por la ya conocida.
@@ -126,7 +125,7 @@ del sistema operativo. Para tal fin copiar el archivo *blocklyMicropython* en
 el directorio */etc/init.d* como sigue:
 
 ```
-# cp ~/appNode/blocklyMicropython /etc/init.d/
+# cp ~/appnode/blocklyMicropython /etc/init.d/
 ```
 
 Ahora es necesario dar permisos de ejecuación

@@ -19,8 +19,7 @@ def main():
     s.send('\r')
     time.sleep(0.2) # Delay for 200mS
     s.send('import pyb\r')
-    s.send('receivedLed = pyb.LED(1)\r')
-    s.send('receivedLed.toggle()\r')
+    s.send('pyb.LED(1).on()\r')
     s.send('\x05')  # Start mode paste
     with open(nameFile) as fp: 
         for line in fp:
