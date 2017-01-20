@@ -467,14 +467,14 @@ height=520px, initial-scale=1">
     function showCode() {
       // Generate JavaScript code and display it.
       Blockly.Python.INFINITE_LOOP_TRAP = null;
-      var code = 'import pyb\npyb.LED(1).off\nfrom pyb import Pin\n';
+      var code = 'import pyb\npyb.LED(1).off()\nfrom pyb import Pin\n';
       code += Blockly.Python.workspaceToCode(workspace);
       alert(code);
     }
 	function copyCode() {
       // Generate JavaScript code and display it.
       Blockly.Python.INFINITE_LOOP_TRAP = null;
-      var code = 'import pyb\npyb.LED(1).off\nfrom pyb import Pin\n';
+      var code = 'import pyb\npyb.LED(1).off()\nfrom pyb import Pin\n';
       code = code + Blockly.Python.workspaceToCode(workspace);
       return code;
     }

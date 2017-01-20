@@ -9,7 +9,7 @@ import sys, time, socket
 ip = sys.argv[1]
 port = int(sys.argv[2])
 nameFile = sys.argv[3]
-timeDelay = float(0.05) 
+timeDelay = float(0.06) 
 #La velocidad del delay debe estar entre 30 y 100 [ms]
 
 s = socket.socket()
