@@ -206,3 +206,26 @@ Blockly.Python['library_dac'] = function(block) {
   var code = 'from pyb import DAC\n';
   return code;
 };
+
+
+
+Blockly.Blocks['led_options'] = {
+  init: function() {
+      this.appendDummyInput()
+          .appendField("Led")
+          .appendField(new Blockly.FieldDropdown([["on", "on()"], ["off", "off()"], ["toggle", "toggle()"]]), "led_actions");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(65);
+      this.setTooltip('');
+      this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Python['led_options'] = function(block) {
+  var dropdown_led_actions = block.getFieldValue('led_actions');
+  // TODO: Assemble Python into code variable.
+  var code = 'pyb.LED(1).' + dropdown_led_actions;
+  return code;
+};
+
