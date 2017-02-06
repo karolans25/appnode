@@ -1,3 +1,7 @@
+# Documentación #
+
+[media_lab](http://docsmedialab.readthedocs.io/es/latest/index.html)
+
 # Instalación de blocklyMicropython #
 
 Se decide hacer uso de git para la instalación debido a que por el
