@@ -75,7 +75,9 @@ io.on('connection', function(socket){
 	
 	socket.on('runTelnet', function(data){
 		runTelnet(data);
-		socket.emit('fileLoaded');
+		setTimeout( function(){
+			socket.emit('fileLoaded');
+		}, 5000);
 	});
 
 	socket.on('scanner', function(){
@@ -105,7 +107,8 @@ function runTelnet(dataIn){
 	console.log(dataIn.name);
 	console.log(dataIn.cardIp);
 	console.log(dataIn.cardMac);
-	exec(`${path_server}server/runMain.sh ${dataIn.cardIp} 3335 ${path_server}server/${dataIn.name}`, function(error, stdout, stderr){
+	//exec(`${path_server}server/runMain.sh ${dataIn.cardIp} 3335 ${path_server}server/${dataIn.name}`, function(error, stdout, stderr){
+	exec(`${path_server}server/runMain.py ${dataIn.cardIp} 3335 ${path_server}server/${dataIn.name}`, function(error, stdout, stderr){
 		if( error !== null) {				
 			console.log('exec error: ' + error);
 		}
@@ -124,7 +127,6 @@ function scanConnected( ){
 	exec('rm '+path_server+'server/cards.txt', function(error, stdout, stderr){
 		if (error !== null){console.log('exec error: ' + error);}
 	});
-	var datos = [];
 	esps = [];
 	exec(`sudo nmap -sP ${route_ip}-254`, function(error, stdout, stderr){
 		if( error !== null) {				
@@ -143,12 +145,10 @@ function scanConnected( ){
 				var indexInMac = elem.indexOf('Address')+9;
 				var indexEndMac = elem.indexOf(' ', indexInMac);
 				if(elem.substring(indexInMac, indexEndMac).length == 17){
-					count ++;
-					var device = {	name: `${aliases[index]}`,
+					var device = {	name: `Dispositivo${index}`,
 									ip: elem.substring(indexInIp, indexEndIp-1),
 									mac: elem.substring(indexInMac, indexEndMac)
 					};
-					datos.push(device);
 					exec('echo \' ' + device.name + '\t' + device.ip + '\t' + device.mac + ' \' >> '+path_server+'server/devices.txt', function(error, stdout, stderr){
 						if( error !== null) {				
 							console.log('exec error: ' + error);
@@ -156,9 +156,14 @@ function scanConnected( ){
 					});
 					exec(`${path_server}server/isESP.sh ${device.ip} 3335`, function(error, stdout, stderr){ 
 						if (error == null){
-							esps.push(device);			
-							console.log(`Card: ${device.name}, ip: ${device.ip}`);
-							exec('echo \' ' + device.name + '\t' + device.ip + '\t' + device.mac + ' \' >> '+path_server+'server/cards.txt', function(error, stdout, stderr){
+							var isCard = { 	name: `${aliases[count]}`,
+											ip: device.ip,
+											mac: device.mac
+							};
+							count ++;
+							esps.push(isCard);			
+							console.log(`Card: ${isCard.name}, ip: ${isCard.ip}`);
+							exec('echo \' ' + isCard.name + '\t' + isCard.ip + '\t' + isCard.mac + ' \' >> '+path_server+'server/cards.txt', function(error, stdout, stderr){
 								if( error !== null) {				
 									console.log('exec error: ' + error);
 								}
@@ -168,7 +173,7 @@ function scanConnected( ){
 				}
 			});
 		}
-		console.log(`\tSe encontraron ${datos.length} dispositivos conectados.`); 
+		console.log(`\tLas tarjetas conectadas son:`); 
 	});
 }
 
