@@ -79,6 +79,10 @@ height=520px, initial-scale=1">
       <div class="w3-btn-group w3-show-inline-block">
 	    <button class="w3-btn w3-pale-green" onclick="showCode()">Preview</button>
 	    <button class="w3-btn w3-pink" onclick="sendFromBlocklytoPyb()">Play</button>
+	    <button class="w3-btn w3-yellow" onclick="importCode()">Import</button>
+	    <button class="w3-btn w3-indigo" onclick="exportCode()">Export</button>
+      </div>
+      </div>
       </div>
     </td>
   </tr>
@@ -380,6 +384,7 @@ height=520px, initial-scale=1">
       <block type='field_thingspeak'></block>
     </category>
     <category id="misPines" name="Pines" colour="230">
+      <block type='led_options'></block>
       <block type='create_pin'></block>
       <block type='gpio_write'></block>
       <block type='gpio_read'></block>
@@ -387,7 +392,6 @@ height=520px, initial-scale=1">
       <block type='adc_create'></block>
       <block type='adc_read'></block>
       <block type='library_dac'></block>
-      <block type='led_options'></block>
     </category>
     <category id="misActuadores" name="Actuadores" colour="27">
       <block type='init_movil'></block>
@@ -483,6 +487,16 @@ height=520px, initial-scale=1">
 		var data = copyCode();
 		parent.iframeConfig.runOnTelnet(data);
 		//console.log(data);
+	}
+	function importCode(){
+		var xml_text = prompt("Ingrese el código:", "");
+		var xml = Blockly.Xml.textToDom(xml_text);
+		Blockly.Xml.domToWorkspace(xml, workspace);
+	}
+	function exportCode(){
+		var xml = Blockly.Xml.workspaceToDom(workspace);    
+		var xml_text = Blockly.Xml.domToText(xml);
+		alert(xml_text);
 	}
   </script>
 
