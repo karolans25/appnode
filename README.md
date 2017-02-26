@@ -185,7 +185,7 @@ Ejemplo:
 
 # En desarrollo #
 
-![En desarrollo](https://bytebucket.org/pinguinotux/appnode/raw/b16c014f968207753543b7039af80e260b41f597/tareas.png)
+![En desarrollo](./tareas.png)
 
 Atentamente:
 
