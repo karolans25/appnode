@@ -1,5 +1,7 @@
 # Proceso de instalación mediaLab #
 
+![Instalación](./images/install.png)
+
 Ayudas: ejecutar el script
 ./mediaLabInstall.sh help
 
