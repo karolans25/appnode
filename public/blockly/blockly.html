@@ -78,9 +78,11 @@ height=520px, initial-scale=1">
     <td>
       <div class="w3-btn-group w3-show-inline-block">
 	    <button class="w3-btn w3-pale-green" onclick="showCode()">Preview</button>
-	    <button class="w3-btn w3-pink" onclick="sendFromBlocklytoPyb()">Play</button>
+	    <button class="w3-btn w3-pink" onclick="runCode()">Play</button>
+	    <button class="w3-btn w3-green" onclick="saveCode()">Save</button>
+	    <button class="w3-btn w3-red" onclick="removeCode()">Remove</button>
 	    <button class="w3-btn w3-pale-yellow" onclick="importCode()">Import</button>
-	    <button class="w3-btn w3-pale-red" onclick="exportCode()">Export</button>
+	    <button class="w3-btn w3-pale-blue" onclick="exportCode()">Export</button>
       </div>
       </div>
       </div>
@@ -471,23 +473,43 @@ height=520px, initial-scale=1">
 
     function showCode() {
       // Generate JavaScript code and display it.
-      Blockly.Python.INFINITE_LOOP_TRAP = null;
-      var code = 'import pyb\npyb.LED(1).off()\nfrom pyb import Pin\n';
-      code += Blockly.Python.workspaceToCode(workspace);
+      var code = 'import pyb\nfrom pyb import Pin\n';
+      code += copyCode();
       alert(code);
     }
 	function copyCode() {
       // Generate JavaScript code and display it.
       Blockly.Python.INFINITE_LOOP_TRAP = null;
-      var code = 'import pyb\npyb.LED(1).off()\nfrom pyb import Pin\n';
-      code = code + Blockly.Python.workspaceToCode(workspace);
+      var code = Blockly.Python.workspaceToCode(workspace);
       return code;
     }
-	function sendFromBlocklytoPyb(){
-		var data = copyCode();
-		parent.iframeConfig.runOnTelnet(data);
+	function runCode(){
+		var code = 'import pyb\npyb.LED(1).on()\n\x05\n\nfrom pyb import Pin\npyb.LED(1).off()\n';
+		code += copyCode();
+		code += '\x04\n';
+		parent.iframeConfig.runOnTelnet(code);
 		//console.log(data);
 	}
+
+	//Save code python
+	function saveCode(){
+  		var code = 'import pyb\npyb.LED(1).on()\n\x05\n\npyb.delay(1000)\nfrom pyb import Pin\npyb.LED(1).off()\n';
+  		code += copyCode();
+		code += '\x04\n';
+		var codetmp = code.split('\n');
+		code = "";
+		for (var i = 0, l = codetmp.length; i < l; i++) {
+			code += "save__data"+codetmp[i]+'\n';
+		}
+		//console.log("save__begin\n"+code+"save__end\n");
+		parent.iframeConfig.runOnTelnet("save__begin\n"+code+"save__end\n");
+	}
+
+	//Remove code python
+	function removeCode(){
+		parent.iframeConfig.runOnTelnet("save__rm\n");
+	}
+
 	function importCode(){
 		var xml_text = prompt("Ingrese el código:", "");
 		var xml = Blockly.Xml.textToDom(xml_text);

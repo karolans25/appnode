@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3. ENTRADAS ANÁLOGAS &#8212; documentación de mediaLab - 1</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script type="text/javascript" src="../_static/MathJax/MathJax.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+    <link rel="next" title="4. MQTT" href="mqtt.html" />
+    <link rel="prev" title="2. ENTRADAS DIGITALES" href="switchled.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="mqtt.html" title="4. MQTT"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="switchled.html" title="2. ENTRADAS DIGITALES"
+             accesskey="P">anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de mediaLab - 1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index_reference.html" accesskey="U">Referencia Rápida</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="entradas-analogas">
+<h1>3. ENTRADAS ANÁLOGAS<a class="headerlink" href="#entradas-analogas" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>La información análoga tiene un comportamiento continuo, cuando se discretiza la
+información (digitalizar) la resolución con la que se logra digitalización
+dependerá de la capacidad de observación del dispositivo.</p>
+<p><em>media_lab</em> tiene la capacidad de digitalizar el nivel de tensión por 8 canales
+diferentes (ver conexión física). Se reitera que la conversión lograda es de tensión (voltaje).
+La resolución que se pude lograr con <em>media_lab</em> es de 12 bits.
+Los umbrales de tensión que pude observar <em>media_lab</em> son: 0 a 3.3 Voltios.
+Si se desea medir niveles de tensión diferentes se debe usar un sistema de adaptación.</p>
+<p><strong>Ejemplo</strong>: Si al conectar a una de las entradas un cable que contiene una tensión variable de
+un potenciómetro como en la imagen de conexión física y la lectura obtenida fue 2800, la interpretación
+se hace como sigue:</p>
+<blockquote>
+<div><p>Resolución = 12 bits -&gt; 2^12 = 4096 posibilidades -&gt; puede medir desde <strong>0</strong> a <strong>4095</strong></p>
+<p>Tensión = 2800*3.3 Voltios / 4095 = 2.256 Voltios.</p>
+</div></blockquote>
+<div class="section" id="conexion-fisica">
+<h2>3.1. Conexión física<a class="headerlink" href="#conexion-fisica" title="Enlazar permanentemente con este título">¶</a></h2>
+<blockquote>
+<div><img alt="../_images/analogoPotenciometro.png" src="../_images/analogoPotenciometro.png" />
+</div></blockquote>
+</div>
+<div class="section" id="programa-en-blockly">
+<h2>3.2. Programa en blockly<a class="headerlink" href="#programa-en-blockly" title="Enlazar permanentemente con este título">¶</a></h2>
+<blockquote>
+<div><img alt="../_images/blocklyanalogo.png" src="../_images/blocklyanalogo.png" />
+</div></blockquote>
+<div class="section" id="explicacion-de-programa">
+<h3>3.2.1. Explicación de programa<a class="headerlink" href="#explicacion-de-programa" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En la imagen se numeran los bloques para luego ser explicados como sigue:</p>
+<ol class="arabic simple">
+<li>El bloque <strong>ADC</strong> activa la librería que permite crear el conversor análogo
+digital.</li>
+<li>Como en la construcción de objetos digitales, en los objetos análogos se
+requiere hacer uso de variables para así hacer uso de sus propiedades.
+Éste bloque construye objetos ADC con capacidad de leer en el pin con el
+nombre correspondiente (en éste caso <em>SEN8</em>, ver conexión física).</li>
+<li>La lectura análoga puede ser almacenada en otra variable para su respectivo
+uso, éste bloque extrae la lectura análoga, no olvidar que es de tipo entero,
+con una resolución ya definida.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Tabla de Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3. ENTRADAS ANÁLOGAS</a><ul>
+<li><a class="reference internal" href="#conexion-fisica">3.1. Conexión física</a></li>
+<li><a class="reference internal" href="#programa-en-blockly">3.2. Programa en blockly</a><ul>
+<li><a class="reference internal" href="#explicacion-de-programa">3.2.1. Explicación de programa</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="switchled.html"
+                        title="capítulo anterior">2. ENTRADAS DIGITALES</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="mqtt.html"
+                        title="próximo capítulo">4. MQTT</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Esta página</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/quickReference/analogo.rst.txt"
+            rel="nofollow">Mostrar el código</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ir a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="mqtt.html" title="4. MQTT"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="switchled.html" title="2. ENTRADAS DIGITALES"
+             >anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">documentación de mediaLab - 1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index_reference.html" >Referencia Rápida</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Derechos de autor 2016, Johnny Cubides, Carolina Pulido.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.
+    </div>
+  </body>
+</html>

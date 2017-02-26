@@ -225,7 +225,7 @@ Blockly.Blocks['led_options'] = {
 Blockly.Python['led_options'] = function(block) {
   var dropdown_led_actions = block.getFieldValue('led_actions');
   // TODO: Assemble Python into code variable.
-  var code = 'pyb.LED(1).' + dropdown_led_actions;
+  var code = 'pyb.LED(1).' + dropdown_led_actions+'\n';
   return code;
 };
 
