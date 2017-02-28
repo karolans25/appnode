@@ -19,11 +19,38 @@ var serial_port = "";
 //var hostname = '192.168.2.3';
 //var hostname = '192.168.1.62';	// Dirección servidor node (web)
 //var hostname = '192.168.1.100';	// Dirección servidor node (web)
-var hostname = '192.168.2.1';	// Dirección servidor node (web)
+var hostname = '192.168.42.1';	// Dirección servidor node (web)
 var port = 1522;		// Puerto de escucha del servidor node	
-var route_ip = '192.168.2.1'; 	// Dirección del enrutador para comando nmap
+var route_ip = '192.168.42.1'; 	// Dirección del enrutador para comando nmap
 //var route_ip = '192.168.2.1'; 	// Dirección del enrutador para comando nmap
+
+// Parametros de configuracion para la libreria libnmap
+
+var nmap = require('libnmap')
+  , timeout = 1024 * 1024
+  , opts = {
+  	  //json: false,
+      range: [
+        '192.168.42.20-30',
+      ],
+      ports: '3335',
+    };
+
 var esps = [];
+
+var cards = [];
+cards['192.168.42.20'] = 'Orion';
+cards['192.168.42.21'] = 'Hercules';
+cards['192.168.42.22'] = 'Andromeda';
+cards['192.168.42.23'] = 'Pegasus';
+cards['192.168.42.24'] = 'Crux';
+cards['192.168.42.25'] = 'Drako';
+cards['192.168.42.26'] = 'Cassiopeia';
+cards['192.168.42.27'] = 'Europa';
+cards['192.168.42.28'] = 'Perseus';
+cards['192.168.42.29'] = 'Centaurus';
+cards['192.168.42.30'] = 'Phoenix';
+
 
 //---------------------------------------------------------------
 // app
@@ -64,7 +91,8 @@ serverHttp.listen(port, hostname, function(){
 	console.log('Server On');
 	console.log(`Servidor corriendo en http://${hostname}:${port}/`);
 	// Escanea las tarjetas conectadas al servidor
-	scanConnected();
+	// scanConnected();
+	scanLibNmap();
 });
 
 
@@ -84,12 +112,13 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('scanner', function(){
-		scanConnected();
+		scanLibNmap();
 		setTimeout( function(){
 			socket.emit('scanList', esps);
 			console.log("Listo para actualizar el select");
-		}, 20000);
+		}, 5000);
 	});
+
 });
 
 
@@ -121,6 +150,59 @@ function runTelnet(dataIn){
 	} );	
 }
 
+
+function scanLibNmap() {
+	
+	// se borra el archivo cards.txt
+	exec('rm '+path_server+'server/cards.txt', function(error, stdout, stderr){
+		if (error !== null){console.log('exec error: ' + error);}
+	});
+
+	// Se lanza el nmap desde libnmap
+	nmap.scan(opts, function(err, report) {
+	  	if (err) throw new Error(err)
+	  
+
+	  	// recorremos el arreglo de respuesta y obtenemos la informacion delas tarjetas
+	  	for (var item in report) {
+		  	//console.log(report[item].host);
+		  	//console.log(JSON.stringify(report[item].host));
+		  	for (var item1 in report[item].host) {
+
+		  		ipadd = report[item].host[item1].address[0].item["addr"];
+		  		mac = report[item].host[item1].address[1].item["addr"];
+		  		name = cards[ipadd];
+		  		//console.log(ipadd + " " + mac);
+		  		//console.log(report[item].host[item1].address[1].item["addr"]);
+		  		
+		  		// Creamos la variable isCard para cada tarjeta conectada
+		  		var isCard = { 	
+		  						name : name,
+								ip: ipadd,
+								mac: mac
+				};
+				
+				// Actualizamos el arreglo de esps
+				esps.push(isCard);		
+
+				// Escribimos el archivo cards.txt
+				exec('echo \' ' + isCard.name + '\t' + isCard.ip + '\t' + isCard.mac + ' \' >> '+path_server+'server/cards.txt', function(error, stdout, stderr){
+					if( error !== null) {				
+						console.log('exec error: ' + error);
+					}
+				});	
+		
+		  	}
+
+		  	console.log(`\tLas tarjetas conectadas son:`); 
+		  	console.log('esps:');
+		  	console.log(esps);
+
+		}
+
+	});
+}
+
 function scanConnected( ){
 	console.log('Escaneando los dispositivos conectados...');
 	//exec('arp', function(error, stdout, stderr){
@@ -131,7 +213,7 @@ function scanConnected( ){
 		if (error !== null){console.log('exec error: ' + error);}
 	});
 	esps = [];
-	exec(`nmap -sP ${route_ip}-254`, function(error, stdout, stderr){
+	exec(`nmap -sP ${route_ip}-30`, function(error, stdout, stderr){
 		if( error !== null) {				
 			console.log('exec error: ' + error);
 		}
@@ -158,6 +240,7 @@ function scanConnected( ){
 						}
 					});
 					exec(`${path_server}server/isESP.sh ${device.ip} 3335`, function(error, stdout, stderr){ 
+						console.log(stdout);
 						if (error == null){
 							var isCard = { 	name: `${aliases[count]}`,
 											ip: device.ip,
