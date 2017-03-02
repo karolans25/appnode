@@ -36,7 +36,7 @@ function processAllFieldsOfTheForm(req, res) {
 
 	
 	
-	console.log(data);
+	console.log(config);
 
     form.parse(req, function (err, fields, files) {
         //Store the data from the fields in your data store.
