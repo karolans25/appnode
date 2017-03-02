@@ -1,0 +1,83 @@
+<html>
+   <body>
+      <form action="" method="post" enctype="multipart/form-data">
+
+
+         <fieldset>
+
+            <table>
+               <tr>
+                  <th>Tarjeta</th>
+                  <th>Nombre</th>
+                  <th>Dirección MAC</th>
+                  <th>Dirección IP</th>
+               </tr>
+            
+
+               <!-- ESP 1 -->
+               <tr>
+                  <td><label for="esp1">ESP 1:</label></td>
+                  <td><input type="text" id="name1" name="name1" placeholder="Orion" /></td>
+                  <td><input type="text" id="mac1" name="mac1" placeholder="DD:EE:F0" /></td>
+                  <td><input type="text" id="ip1" name="ip1" placeholder="192.168.0.10" /></td>
+               </tr>
+
+              <!-- ESP 2 -->
+               <tr>
+                  <td><label for="esp1">ESP 2:</label></td>
+                  <td><input type="text" id="name2" name="name2" placeholder="Hercules" /></td>
+                  <td><input type="text" id="mac2" name="mac2" placeholder="DD:EE:F1" /></td>
+                  <td><input type="text" id="ip2" name="ip2" placeholder="192.168.0.11" /></td>
+               </tr>
+
+               <!-- ESP 3 -->
+               <tr>
+                  <td><label for="esp1">ESP 3:</label></td>
+                  <td><input type="text" id="name3" name="name3" placeholder="Andromeda" /></td>
+                  <td><input type="text" id="mac3" name="mac3" placeholder="DD:EE:F2" /></td>
+                  <td><input type="text" id="ip3" name="ip3" placeholder="192.168.0.12" /></td>
+               </tr>
+
+               <!-- ESP 4 -->
+               <tr>
+                  <td><label for="esp1">ESP 4:</label></td>
+                  <td><input type="text" id="name4" name="name4" placeholder="Pegasus" /></td>
+                  <td><input type="text" id="mac4" name="mac4" placeholder="DD:EE:F3" /></td>
+                  <td><input type="text" id="ip4" name="ip4" placeholder="192.168.0.13" /></td>
+               </tr>
+
+               <!-- ESP 5 -->
+               <tr>
+                  <td><label for="esp1">ESP 5:</label></td>
+                  <td><input type="text" id="name5" name="name5" placeholder="Crux" /></td>
+                  <td><input type="text" id="mac5" name="mac5" placeholder="DD:EE:F4" /></td>
+                  <td><input type="text" id="ip5" name="ip5" placeholder="192.168.0.14" /></td>
+               </tr>
+               
+            </table>
+
+            <br>
+
+            <!-- EVA LAN -->
+            <label for="evalan">Ecosistema Virtual (EVA) Red LAN</label>
+            <input type="text" id="evalan" name="evalan" placeholder="192.168.0.1" />
+            
+            <!-- EVA PORT -->
+            <label for="evawifi">Puerto </label>
+            <input type="text" id="evaport" name="evaport" placeholder="1522" />
+            <br>
+
+            
+            <!-- EVA WIFI -->
+            <label for="evawifi">Ecosistema Virtual (EVA) Red WIFI</label>
+            <input type="text" id="evawifi" name="evawifi" placeholder="192.168.0.1" />
+            <br>
+
+            
+
+            <br />
+            <input type="submit" value="Create Profile" />
+         </fieldset>
+      </form>
+   </body>
+</html>
