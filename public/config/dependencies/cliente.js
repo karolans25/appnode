@@ -1,4 +1,4 @@
-var hostname = '192.168.0.12';
+var hostname = '10.81.139.2';
 //var hostname = '192.168.1.62';
 
 var socket = io.connect(`http://${hostname}:1522`, {'forceNew': true});
