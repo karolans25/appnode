@@ -1,0 +1,132 @@
+doctype html
+html
+  head
+    title!= title
+  body
+    h1!= message
+    form(action='', method='post', enctype='multipart/form-data')
+      fieldset
+        table
+          tr
+            th Tarjeta
+            th Nombre
+            th Dirección MAC
+            th Dirección IP
+          // ESP 1
+          tr
+            td
+              label(for='esp1') ESP 1:
+            td
+              input#name1(type='text', name='name1', placeholder='Orion', value='#{locals.name1}')
+            td
+              input#mac1(type='text', name='mac1', placeholder='DD:EE:F0', value='#{locals.mac1}')
+            td
+              input#ip1(type='text', name='ip1', placeholder='192.168.0.10', value='#{locals.ip1}')
+          // ESP 2
+          tr
+            td
+              label(for='esp1') ESP 2:
+            td
+              input#name2(type='text', name='name2', placeholder='Hercules', value='#{locals.name2}')
+            td
+              input#mac2(type='text', name='mac2', placeholder='DD:EE:F1', value='#{locals.mac2}')
+            td
+              input#ip2(type='text', name='ip2', placeholder='192.168.0.11', value='#{locals.ip2}')
+          // ESP 3
+          tr
+            td
+              label(for='esp1') ESP 3:
+            td
+              input#name3(type='text', name='name3', placeholder='Andromeda', value='#{locals.name3}')
+            td
+              input#mac3(type='text', name='mac3', placeholder='DD:EE:F2', value='#{locals.mac3}')
+            td
+              input#ip3(type='text', name='ip3', placeholder='192.168.0.12', value='#{locals.ip3}')
+          // ESP 4
+          tr
+            td
+              label(for='esp1') ESP 4:
+            td
+              input#name4(type='text', name='name4', placeholder='Pegasus', value='#{locals.name4}')
+            td
+              input#mac4(type='text', name='mac4', placeholder='DD:EE:F3', value='#{locals.mac4}')
+            td
+              input#ip4(type='text', name='ip4', placeholder='192.168.0.13', value='#{locals.ip4}')
+          // ESP 5
+          tr
+            td
+              label(for='esp1') ESP 5:
+            td
+              input#name5(type='text', name='name5', placeholder='Crux', value='#{locals.name5}')
+            td
+              input#mac5(type='text', name='mac5', placeholder='DD:EE:F4', value='#{locals.mac5}')
+            td
+              input#ip5(type='text', name='ip5', placeholder='192.168.0.14', value='#{locals.ip5}')
+          // ESP 6
+          tr
+            td
+              label(for='esp1') ESP 6:
+            td
+              input#name6(type='text', name='name6', placeholder='Orion', value='#{locals.name6}')
+            td
+              input#mac6(type='text', name='mac6', placeholder='DD:EE:F5', value='#{locals.mac6}')
+            td
+              input#ip6(type='text', name='ip6', placeholder='192.168.0.15', value='#{locals.ip6}')
+          // ESP 7
+          tr
+            td
+              label(for='esp1') ESP 7:
+            td
+              input#name7(type='text', name='name7', placeholder='Hercules', value='#{locals.name7}')
+            td
+              input#mac7(type='text', name='mac7', placeholder='DD:EE:F6', value='#{locals.mac7}')
+            td
+              input#ip7(type='text', name='ip7', placeholder='192.168.0.16', value='#{locals.ip7}')
+          // ESP 8
+          tr
+            td
+              label(for='esp1') ESP 8:
+            td
+              input#name8(type='text', name='name8', placeholder='Andromeda', value='#{locals.name8}')
+            td
+              input#mac8(type='text', name='mac8', placeholder='DD:EE:F7', value='#{locals.mac8}')
+            td
+              input#ip8(type='text', name='ip8', placeholder='192.168.0.17', value='#{locals.ip8}')
+          // ESP 9
+          tr
+            td
+              label(for='esp1') ESP 9:
+            td
+              input#name9(type='text', name='name9', placeholder='Pegasus', value='#{locals.name9}')
+            td
+              input#mac9(type='text', name='mac9', placeholder='DD:EE:F8', value='#{locals.mac9}')
+            td
+              input#ip9(type='text', name='ip9', placeholder='192.168.0.18', value='#{locals.ip9}')
+          // ESP 10
+          tr
+            td
+              label(for='esp1') ESP 10:
+            td
+              input#name10(type='text', name='name10', placeholder='Crux', value='#{locals.name10}')
+            td
+              input#mac10(type='text', name='mac10', placeholder='DD:EE:F9', value='#{locals.mac10}')
+            td
+              input#ip10(type='text', name='ip10', placeholder='192.168.0.19', value='#{locals.ip10}')
+        br
+        // EVA LAN
+        label(for='evalan') Ecosistema Virtual (EVA) Red LAN
+        input#evalan(type='text', name='evalan', placeholder='192.168.0.1', value='#{locals.evalan}')
+        // EVA PORT
+        label(for='evaport') Puerto 
+        input#evaport(type='text', name='evaport', placeholder='1522', value='#{locals.evaport}')
+        br
+        // EVA WIFI
+        label(for='evawifi') Ecosistema Virtual (EVA) Red WIFI
+        input#evawifi(type='text', name='evawifi', placeholder='192.168.0.1', value='#{locals.evawifi}')
+        br
+        // NMAP Range
+        label(for='nmaprange') Rango de direcciones para nmap
+        input#evawifi(type='text', name='nmaprange', placeholder='192.168.0.1-10', value='#{locals.nmaprange}')
+        br
+        br
+        input(type='submit', value='Create Profile')

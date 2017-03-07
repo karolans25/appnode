@@ -1,0 +1,183 @@
+var http = require('http');
+var express = require('express');
+var fs = require('fs');
+var formidable = require("formidable");
+//var formidable = require('express-formidable');
+var util = require('util');
+var ini = require('ini');
+var FormData = require('form-data');
+var cheerio = require('cheerio');
+
+
+var server = http.createServer(function (req, res) {
+    if (req.method.toLowerCase() == 'get') {
+        displayForm(res);
+    } else if (req.method.toLowerCase() == 'post') {
+        processAllFieldsOfTheForm(req, res);
+    }
+
+});
+
+// Crear instancia del formulario
+var form = new formidable.IncomingForm();
+//var formUp = new FormData();
+
+
+// var app = new express();
+// app.use(formidable());
+
+// Archivo config
+var config = ini.parse(fs.readFileSync('config.ini', 'utf-8'));
+
+var cards = [];
+
+
+function displayForm(res) {
+    fs.readFile('form.html', function (err, data) {
+        var $ = cheerio.load(data);
+		$('#name1').val('Hercules').html();
+		//$('#name1').attr('value','Hercules');
+		
+
+        res.writeHead(200, {
+            'Content-Type': 'text/html',
+                'Content-Length': data.length
+        });
+        
+        res.locals.name1 = "hercules";
+        //res.render(data);
+		res.write(data);
+        res.write($('#name1').val());
+		res.end();
+		
+		console.log(res.locals);
+
+    });
+
+
+}
+
+function processAllFieldsOfTheForm(req, res) {
+
+    form.encoding = 'utf-8';
+    form.multiples = false;
+
+    // Read in the file and parse the raw information
+    readConfig();
+	
+
+    if (req.method.toLowerCase() === 'post') {
+        form.parse(req, function (err, fields, files) {
+            //Store the data from the fields in your data store.
+            //The data store could be a file or database or any other store based
+            //on your application.
+
+            // Se actualizan los valores nuevos en el archivo de configuracion
+
+            //console.log("Datos de la primera tarjeta");
+            //console.log("Card 1 : " + fields.name1 + " , " + fields.mac1 + " , " + fields.ip1 );
+            /* appnode */
+            config.appnode.hostname = fields.evawifi;
+            config.appnode.port = fields.evaport;
+            config.appnode.route_ip = fields.evawifi;
+
+
+            /* ESP 1 */
+            config.ESP1.name = fields.name1;
+            config.ESP1.mac = fields.mac1;
+            config.ESP1.ip = fields.ip1;
+
+            /* ESP 2 */
+            config.ESP2.name = fields.name2;
+            config.ESP2.mac = fields.mac2;
+            config.ESP2.ip = fields.ip2;
+
+            /* ESP 3 */
+            config.ESP3.name = fields.name3;
+            config.ESP3.mac = fields.mac3;
+            config.ESP3.ip = fields.ip3;
+
+            /* ESP 4 */
+            config.ESP4.name = fields.name4;
+            config.ESP4.mac = fields.mac4;
+            config.ESP4.ip = fields.ip4;
+
+            /* ESP 5 */
+            config.ESP5.name = fields.name5;
+            config.ESP5.mac = fields.mac5;
+            config.ESP5.ip = fields.ip5;
+
+            /* ESP 6 */
+            config.ESP6.name = fields.name6;
+            config.ESP6.mac = fields.mac6;
+            config.ESP6.ip = fields.ip6;
+
+            /* ESP 7 */
+            config.ESP7.name = fields.name7;
+            config.ESP7.mac = fields.mac7;
+            config.ESP7.ip = fields.ip7;
+
+            /* ESP 8 */
+            config.ESP8.name = fields.name8;
+            config.ESP8.mac = fields.mac8;
+            config.ESP8.ip = fields.ip8;
+
+            /* ESP 9 */
+            config.ESP9.name = fields.name9;
+            config.ESP9.mac = fields.mac9;
+            config.ESP9.ip = fields.ip9;
+
+            /* ESP 10 */
+            config.ESP10.name = fields.name10;
+            config.ESP10.mac = fields.mac10;
+            config.ESP10.ip = fields.ip10;
+
+            fs.writeFileSync('config.ini', ini.stringify(config))
+            //writeFile(res);
+
+            res.writeHead(200, {
+                'Content-Type': 'text/html',
+                    //'Content-Length': data.length
+            });
+
+            // se escriben en el archivo de configuracion
+            res.write('Archivo de configuracion actualizado:\n\n');
+
+            //createDhcpStatic();
+
+        });
+    }
+
+}
+
+
+function createDhcpStatic() {
+    var fs = require('fs')
+    var logger = fs.createWriteStream('./log.txt', {
+      flags: 'a' // 'a' means appending (old data will be preserved)
+    })
+
+    logger.write('some data') // append string to your file
+    logger.write('more data') // again
+    logger.write('and more') // again
+}
+
+function readConfig() {
+    //var cards = [];
+    cards[config.ESP1.ip] = config.ESP1.name;
+    cards[config.ESP2.ip] = config.ESP2.name;
+    cards[config.ESP3.ip] = config.ESP3.name;
+    cards[config.ESP4.ip] = config.ESP4.name;
+    cards[config.ESP5.ip] = config.ESP5.name;
+    cards[config.ESP6.ip] = config.ESP6.name;
+    cards[config.ESP7.ip] = config.ESP7.name;
+    cards[config.ESP8.ip] = config.ESP8.name;
+    cards[config.ESP9.ip] = config.ESP9.name;
+    cards[config.ESP10.ip] = config.ESP10.name;
+        
+    console.log("Informacion de config.ini")
+    console.log(cards);
+}
+
+server.listen(1185);
+console.log("server listening on 1185");
