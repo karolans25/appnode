@@ -10,22 +10,26 @@ var app = express();
 var serverHttp = require('http').Server(app);
 var io = require('socket.io')(serverHttp);
 var fs = require('fs');
+var ejs = require('ejs');
 
 // Requerido para leer config.ini
 var ini = require('ini');
+var config = ini.parse(fs.readFileSync('./config.ini', 'utf-8'));
 
 var exec = require('child_process').exec;
 //var path_server = '/home/pi/appnode/';
 var path_server = './';
 
 var serial_port = "";
+
 //var hostname = '10.203.166.183';
 //var hostname = '192.168.2.3';
 //var hostname = '192.168.1.62';	// Dirección servidor node (web)
 //var hostname = '192.168.1.100';	// Dirección servidor node (web)
-var hostname = '10.81.139.2';	// Dirección servidor node (web)
-var port = 1522;		// Puerto de escucha del servidor node	
-var route_ip = '10.81.139.1'; 	// Dirección del enrutador para comando nmap
+//var hostname = '10.81.139.2';	// Dirección servidor node (web)
+var hostname = config.appnode.hostname;	// Dirección servidor node (web)
+var port = config.appnode.port;		// Puerto de escucha del servidor node	
+var route_ip = config.appnode.route_ip; 	// Dirección del enrutador para comando nmap
 //var route_ip = '192.168.2.1'; 	// Dirección del enrutador para comando nmap
 
 // Parametros de configuracion para la libreria libnmap
@@ -35,7 +39,7 @@ var nmap = require('libnmap')
   , opts = {
   	  //json: false,
       range: [
-        '10.81.139.210-220',
+        config.NMAP.range,
       ],
       ports: '3335',
     };
@@ -65,8 +69,9 @@ app.get('/', function(req, res){
 					res.end();                    
 				} else {
 					res.writeHead(200, {'Content-Type': 'text/html'});
-					res.write(contenido);
-					res.end();
+					//res.write(contenido);
+					var rendererHtml = ejs.render(contenido, {hostname: '192.168.2.2'});
+					res.end(rendererHtml);
 				}
 			});
 		} else {
@@ -135,7 +140,7 @@ function saveInit(datoIn, fileName){
 
 function readConfig() {
 	// Read in the file and parse the raw information
-	var config = ini.parse(fs.readFileSync('./config.ini', 'utf-8'));
+	
 	console.log(config);
 	
 	//console.log(cards);

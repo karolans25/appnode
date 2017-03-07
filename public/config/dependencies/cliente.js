@@ -1,4 +1,23 @@
-var hostname = '10.81.139.2';
+// var os = require('os');
+// var getIpAddress = function() {
+// 	var ifaces = os.networkInterfaces();
+// 	var ips = {};
+// 	for (var dev in ifaces) {
+// 		var alias = 0;
+// 		ifaces[dev].forEach(function(details){
+// 			if (details.family == 'IPv4') {
+// 				ips[dev+(alias?':'+alias:'')] = details.address;
+// 				++alias;
+// 			}
+// 		});
+// 	}
+// 	ips['network_interface'] = server.get('network_interface');
+// 	return  ips;
+// };
+
+console.log('Variable recibida <%= hostname %>') ;
+
+//var hostname = '127.0.0.1';
 //var hostname = '192.168.1.62';
 
 var socket = io.connect(`http://${hostname}:1522`, {'forceNew': true});

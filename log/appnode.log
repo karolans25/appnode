@@ -3,40 +3,29 @@ Servidor corriendo en http://10.81.139.2:1522/
 { appnode: 
    { hostname: '10.81.139.2',
      port: '1522',
-     route_ip: '10.81.139.1' },
-  ESP1: { name: 'Orion', mac: '5c:cf:7f:c4:43:10', ip: '10.81.139.210' },
-  ESP2: 
-   { name: 'Hercules',
-     mac: '5c:cf:7f:c3:74:1c',
-     ip: '10.81.139.211' },
-  ESP3: 
-   { name: 'Andromeda',
-     mac: '5c:cf:7f:c4:43:05',
-     ip: '10.81.139.212' },
-  ESP4: 
-   { name: 'Pegasus',
-     mac: '5c:cf:7f:c4:40:a4',
-     ip: '10.81.139.213' },
-  ESP5: { name: 'Crux', mac: '5c:cf:7f:c3:73:d5', ip: '10.81.139.214' },
-  ESP6: 
-   { name: 'Phoenix',
-     mac: '5c:cf:7f:16:ce:f7',
-     ip: '10.81.139.215' } }
-Orion :  10.81.139.210 5C:CF:7F:C4:43:10
-Hercules :  10.81.139.211 5C:CF:7F:C3:74:1C
-Andromeda :  10.81.139.212 5C:CF:7F:C4:43:05
-Crux :  10.81.139.214 5C:CF:7F:C3:73:D5
+     route_ip: '10.81.139.2' },
+  ESP1: { name: 'Orion', mac: '5C:CF:7F:16:ce:f7', ip: '10.81.139.215' },
+  ESP2: { name: 'Hercules', mac: 'DD:EE:F1', ip: '192.168.0.11' },
+  ESP3: { name: 'Andromeda', mac: 'DD:EE:F2', ip: '192.168.0.12' },
+  ESP4: { name: 'Pegasus', mac: 'DD:EE:F3', ip: '192.168.0.13' },
+  ESP5: { name: 'Crux', mac: 'DD:EE:F4', ip: '192.168.0.14' },
+  ESP6: { name: 'Draco', mac: 'DD:EE:F5', ip: '192.168.0.15' },
+  ESP7: { name: 'Cassiopeia', mac: 'DD:EE:F6', ip: '192.168.0.16' },
+  ESP8: { name: 'Europa', mac: 'DD:EE:F7', ip: '192.168.0.17' },
+  ESP9: { name: 'Perseus', mac: 'DD:EE:F8', ip: '192.168.0.18' },
+  ESP10: { name: 'Centaurus', mac: 'DD:EE:F9', ip: '192.168.0.19' },
+  NMAP: { range: '10.81.139.210-230' } }
+Algún cliente conectado con Sockets
+Orion :  10.81.139.215 5C:CF:7F:16:CE:F7
 	Las tarjetas conectadas son:
 esps:
-[ { name: 'Orion', ip: '10.81.139.210', mac: '5C:CF:7F:C4:43:10' },
-  { name: 'Hercules',
-    ip: '10.81.139.211',
-    mac: '5C:CF:7F:C3:74:1C' },
-  { name: 'Andromeda',
-    ip: '10.81.139.212',
-    mac: '5C:CF:7F:C4:43:05' },
-  { name: 'Crux', ip: '10.81.139.214', mac: '5C:CF:7F:C3:73:D5' } ]
-Algún cliente conectado con Sockets
+[ { name: 'Orion', ip: '10.81.139.215', mac: '5C:CF:7F:16:CE:F7' } ]
+Orion :  10.81.139.215 5C:CF:7F:16:CE:F7
+	Las tarjetas conectadas son:
+esps:
+[ { name: 'Orion', ip: '10.81.139.215', mac: '5C:CF:7F:16:CE:F7' },
+  { name: 'Orion', ip: '10.81.139.215', mac: '5C:CF:7F:16:CE:F7' } ]
+Listo para actualizar el select
 import pyb
 
 def blink():
@@ -48,8 +37,8 @@ blink()
 
 
 Orion.py
-10.81.139.210
-5C:CF:7F:C4:43:10
+10.81.139.215
+5C:CF:7F:16:CE:F7
 Se ha escrito correctamente en Orion.py
 Se ha cargado correctamente el archivo: Orion.py
 import pyb
@@ -63,7 +52,7 @@ blink()
 
 
 Orion.py
-10.81.139.210
-5C:CF:7F:C4:43:10
+10.81.139.215
+5C:CF:7F:16:CE:F7
 Se ha escrito correctamente en Orion.py
 Se ha cargado correctamente el archivo: Orion.py
