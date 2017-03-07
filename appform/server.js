@@ -156,6 +156,7 @@ app.post('/', (req, res) => {
     
 
     writeDhcpStatic(fields);
+    restartServices();
     
 
     //console.log(req.fields);
@@ -167,7 +168,7 @@ app.post('/', (req, res) => {
 function writeDhcpStatic(fields) {
 
     var fs = require('fs');
-    var stream = fs.createWriteStream("./dhcpd.static.conf");
+    var stream = fs.createWriteStream("/etc/dhcp/dhcpd.static.conf");
     stream.once('open', function(fd) {
       stream.write("#" + fields.name1 + "\n");
       stream.write('host ' + fields.name1.toLowerCase() + '{\n\thardware ethernet 5C:CF:7F:' + fields.mac1 + ';\n\tfixed-address ' + fields.ip1 + ';\n}\n\n');
@@ -203,20 +204,23 @@ function writeDhcpStatic(fields) {
 
 }
 
-function replaceHostnameServer(fields) {
-    var fs = require('fs')
-    someFile = './server/servidor_service.js';
-    fs.readFile(someFile, 'utf8', function (err,data) {
-        if (err) {
-            return console.log(err);
+function restartServices() {
+    exec(`service isc-dhcp-server restart`, function(error, stdout, stderr){
+        if( error !== null) {               
+            console.log('exec error: ' + error);
         }
-        var result = data.replace(/string to be replaced/g, 'replacement');
-
-        fs.writeFile(someFile, result, 'utf8', function (err) {
-            if (err) return console.log(err);
-    });
-});
-
+        else{
+            console.log(`Se ha reiniciado DHCP`);  
+        }
+    } );
+    exec(`service blocklyMicropython restart`, function(error, stdout, stderr){
+        if( error !== null) {               
+            console.log('exec error: ' + error);
+        }
+        else{
+            console.log(`Se ha reiniciado nodeApp`);  
+        }
+    } );
 }
  
 // escuchar

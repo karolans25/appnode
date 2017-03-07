@@ -7,10 +7,10 @@ RouteIp :10.81.139.2
    { hostname: '10.81.139.2',
      port: '1522',
      route_ip: '10.81.139.2' },
-  ESP1: { name: 'Orion', mac: '5C:CF:7F:16:ce:f7', ip: '10.81.139.215' },
-  ESP2: { name: 'Hercules', mac: 'DD:EE:F1', ip: '192.168.0.11' },
+  ESP1: { name: 'Orion', mac: '16:ce:f7', ip: '10.81.139.210' },
+  ESP2: { name: 'Hercules', mac: 'c4:43:40', ip: '10.81.139.215' },
   ESP3: { name: 'Andromeda', mac: 'DD:EE:F2', ip: '192.168.0.12' },
-  ESP4: { name: 'Pegasus', mac: 'DD:EE:F3', ip: '192.168.0.13' },
+  ESP4: { name: 'Pegasus1', mac: 'DD:EE:F3', ip: '192.168.0.13' },
   ESP5: { name: 'Crux', mac: 'DD:EE:F4', ip: '192.168.0.14' },
   ESP6: { name: 'Draco', mac: 'DD:EE:F5', ip: '192.168.0.15' },
   ESP7: { name: 'Cassiopeia', mac: 'DD:EE:F6', ip: '192.168.0.16' },
@@ -18,54 +18,12 @@ RouteIp :10.81.139.2
   ESP9: { name: 'Perseus', mac: 'DD:EE:F8', ip: '192.168.0.18' },
   ESP10: { name: 'Centaurus', mac: 'DD:EE:F9', ip: '192.168.0.19' },
   NMAP: { range: '10.81.139.210-230' } }
-Orion :  10.81.139.215 5C:CF:7F:16:CE:F7
+Algún cliente conectado con Sockets
+Orion :  10.81.139.210 5C:CF:7F:16:CE:F7
+Hercules :  10.81.139.215 5C:CF:7F:C4:43:40
 	Las tarjetas conectadas son:
 esps:
-[ { name: 'Orion', ip: '10.81.139.215', mac: '5C:CF:7F:16:CE:F7' } ]
-Algún cliente conectado con Sockets
-[2017-03-07T15:21:56.023Z] import pyb
-
-def blink():
- LED = pyb.LED(1)
- LED.toggle()
- return
-
-blink()
-
-
-[2017-03-07T15:21:56.024Z] Orion.py
-[2017-03-07T15:21:56.024Z] 10.81.139.215
-[2017-03-07T15:21:56.024Z] 5C:CF:7F:16:CE:F7
-[2017-03-07T15:21:56.049Z] Se ha escrito correctamente en Orion.py
-[2017-03-07T15:21:58.247Z] Se ha cargado correctamente el archivo: Orion.py
-[2017-03-07T15:22:03.215Z] import pyb
-
-def blink():
- LED = pyb.LED(1)
- LED.toggle()
- return
-
-blink()
-
-
-[2017-03-07T15:22:03.215Z] Orion.py
-[2017-03-07T15:22:03.216Z] 10.81.139.215
-[2017-03-07T15:22:03.216Z] 5C:CF:7F:16:CE:F7
-[2017-03-07T15:22:03.231Z] Se ha escrito correctamente en Orion.py
-[2017-03-07T15:22:05.414Z] Se ha cargado correctamente el archivo: Orion.py
-[2017-03-07T15:22:06.017Z] import pyb
-
-def blink():
- LED = pyb.LED(1)
- LED.toggle()
- return
-
-blink()
-
-
-[2017-03-07T15:22:06.017Z] Orion.py
-[2017-03-07T15:22:06.020Z] 10.81.139.215
-[2017-03-07T15:22:06.020Z] 5C:CF:7F:16:CE:F7
-[2017-03-07T15:22:06.038Z] Se ha escrito correctamente en Orion.py
-[2017-03-07T15:22:08.170Z] Se ha cargado correctamente el archivo: Orion.py
-[2017-03-07T15:22:44.577Z] Algún cliente conectado con Sockets
+[ { name: 'Orion', ip: '10.81.139.210', mac: '5C:CF:7F:16:CE:F7' },
+  { name: 'Hercules',
+    ip: '10.81.139.215',
+    mac: '5C:CF:7F:C4:43:40' } ]
