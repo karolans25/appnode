@@ -184,6 +184,7 @@ local function runOrSave(data)
 	if string.match(data,'^.-__')=="save__" then
 		gpio.write(4,gpio.LOW)
 		savePython(data)
+		uart.write(0,'\r')
 	else
 		uart.write(0,data)
 	end

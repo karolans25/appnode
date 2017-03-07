@@ -1,0 +1,1 @@
+./myEspTool.py scripts/wifi_station.lua 0.01 /dev/ttyUSB0

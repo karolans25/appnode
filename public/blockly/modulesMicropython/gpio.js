@@ -207,8 +207,6 @@ Blockly.Python['library_dac'] = function(block) {
   return code;
 };
 
-
-
 Blockly.Blocks['led_options'] = {
   init: function() {
       this.appendDummyInput()
