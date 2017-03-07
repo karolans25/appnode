@@ -18,6 +18,7 @@ case "$1" in
 ;;
 
   stop)
+    kill -9 %1
     echo "stopping"  
   ;;
 

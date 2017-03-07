@@ -45,8 +45,8 @@ srv:listen(80, function(conn)
 			if amper1_start and amper1_end then
 				http_start, http_end =string.find(payload,"HTTP/1.1", ssid_end+1);
 				if http_start and http_end then
-					ssid=string.sub(payload,ssid_end+1, amper1_start-1);
-					password=string.sub(payload,amper1_end+10, http_start-2);
+					ssid=string.gsub(string.sub(payload,ssid_end+1, amper1_start-1),'+',' ');
+					password=string.gsub(string.sub(payload,amper1_end+10, http_start-2),'+',' ');
 					if ssid and password then
 						connect2AP(ssid,password)
 					end
