@@ -15,9 +15,9 @@
 // 	return  ips;
 // };
 
-console.log('Variable recibida <%= hostname %>') ;
+//console.log('Variable recibida <%= hostname %>') ;
 
-//var hostname = '127.0.0.1';
+var hostname = '10.81.139.2';
 //var hostname = '192.168.1.62';
 
 var socket = io.connect(`http://${hostname}:1522`, {'forceNew': true});

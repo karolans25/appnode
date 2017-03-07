@@ -1,26 +1,43 @@
-#! /bin/sh 
+#! /bin/sh
+# /etc/init.d/blocklyMicropython
+
 ### BEGIN INIT INFO
-# Provides:		blocklyMicropython	     		
-# Required-Start:	$all $local_fs $network $remote_fs 		
-# Required-Stop:     	$all
-# Default-Start:	2 3 4 5	
-# Default-Stop:		0 1 6
-# Short-Description:	blocklyMicropython.
-# Description:       	This service is used by blocklyMicropython.
+# Provides:          blocklyMicropython
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: blocklyMicropython init script
+# Description:       This file should be used to construct scripts to be
+#                    placed in /etc/init.d.
 ### END INIT INFO
 
+# Carry out specific functions when asked to by the system
 case "$1" in
+   start)
+    echo "Starting blocklyMicropython.js"
+    # run application you want to start
+    #node /home/pi/test.js > /home/pi/test.log
+    cd /root/appnode
+    # Run appnode
+    node server/servidor_service.js  > /root/appnode/log/appnode.log &
+    
+    #Run frontail para ver log de appnode en puerto 9001
+    frontail /root/appnode/log/appnode.log &
 
-  start)
-    echo "starting blocklyMicropython"
-	cd /home/pi/appnode/
-	node server/servidor_service.js & 
-;;
-
-  stop)
-    kill -9 %1
-    echo "stopping"  
-  ;;
-
+    #Run appform para configuracion de tarjetas
+    node /root/appnode/appform/server.js &
+   ;;
+   stop)
+    echo "Stopping blocklyMicropython.js"
+    # kill application you want to stop
+    killall -9 node
+    # Not a great approach for running
+    # multiple node instances
+    ;;
+  *)
+    echo "Usage: /etc/init.d/blocklyMicropython {start|stop}"
+    exit 1
+    ;;
 esac
 exit 0

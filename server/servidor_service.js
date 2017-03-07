@@ -11,6 +11,8 @@ var serverHttp = require('http').Server(app);
 var io = require('socket.io')(serverHttp);
 var fs = require('fs');
 var ejs = require('ejs');
+//var logstamp = require('log-timestamp');
+
 
 // Requerido para leer config.ini
 var ini = require('ini');
@@ -27,6 +29,9 @@ var serial_port = "";
 //var hostname = '192.168.1.62';	// Dirección servidor node (web)
 //var hostname = '192.168.1.100';	// Dirección servidor node (web)
 //var hostname = '10.81.139.2';	// Dirección servidor node (web)
+
+
+
 var hostname = config.appnode.hostname;	// Dirección servidor node (web)
 var port = config.appnode.port;		// Puerto de escucha del servidor node	
 var route_ip = config.appnode.route_ip; 	// Dirección del enrutador para comando nmap
@@ -94,6 +99,11 @@ app.get('/hello', function(req, res){
 serverHttp.listen(port, hostname, function(){
 	console.log('Server On');
 	console.log(`Servidor corriendo en http://${hostname}:${port}/`);
+
+	console.log('Host :' + config.appnode.hostname);
+	console.log('Puerto :' + config.appnode.port);
+	console.log('RouteIp :' + config.appnode.route_ip);
+
 	// Escanea las tarjetas conectadas al servidor
 	// scanConnected();
 	readConfig();
@@ -160,6 +170,7 @@ function readConfig() {
 
 
 function runTelnet(dataIn){
+	require('log-timestamp');
 	saveInit(dataIn.text, dataIn.name);
 	console.log(dataIn.text);
 	console.log(dataIn.name);
