@@ -11,6 +11,7 @@ Contents:
 .. toctree::
     ./quickReference/index_reference.rst
     ./guias/index_guias.rst
+    ./basic_information/index_informacion.rst
 
 Indices and tables
 ==================
