@@ -8,22 +8,1006 @@ RouteIp :10.81.139.2
      port: '1522',
      route_ip: '10.81.139.2' },
   ESP1: { name: 'Orion', mac: '16:ce:f7', ip: '10.81.139.210' },
-  ESP2: { name: 'Hercules', mac: 'c4:43:40', ip: '10.81.139.215' },
-  ESP3: { name: 'Andromeda', mac: 'DD:EE:F2', ip: '192.168.0.12' },
-  ESP4: { name: 'Pegasus1', mac: 'DD:EE:F3', ip: '192.168.0.13' },
-  ESP5: { name: 'Crux', mac: 'DD:EE:F4', ip: '192.168.0.14' },
-  ESP6: { name: 'Draco', mac: 'DD:EE:F5', ip: '192.168.0.15' },
-  ESP7: { name: 'Cassiopeia', mac: 'DD:EE:F6', ip: '192.168.0.16' },
-  ESP8: { name: 'Europa', mac: 'DD:EE:F7', ip: '192.168.0.17' },
-  ESP9: { name: 'Perseus', mac: 'DD:EE:F8', ip: '192.168.0.18' },
-  ESP10: { name: 'Centaurus', mac: 'DD:EE:F9', ip: '192.168.0.19' },
+  ESP2: { name: 'Hercules', mac: 'c3:74:1c', ip: '10.81.139.211' },
+  ESP3: { name: 'Andromeda', mac: 'c4:43:05', ip: '10.81.139.212' },
+  ESP4: { name: 'Pegasus', mac: 'c4:40:a4', ip: '10.81.139.213' },
+  ESP5: { name: 'Crux', mac: 'c3:73:d5', ip: '10.81.139.214' },
+  ESP6: { name: 'Draco', mac: 'c4:42:e1', ip: '10.81.139.215' },
+  ESP7: { name: 'Cassiopeia', mac: 'c3:71:83', ip: '10.81.139.216' },
+  ESP8: { name: 'Europa', mac: 'c4:43:40', ip: '10.81.139.217' },
+  ESP9: { name: 'Perseus', mac: '85:42:e1', ip: '10.81.139.218' },
+  ESP10: { name: 'Centaurus', mac: '85:47:94', ip: '10.81.139.219' },
   NMAP: { range: '10.81.139.210-230' } }
 Algún cliente conectado con Sockets
 Orion :  10.81.139.210 5C:CF:7F:16:CE:F7
-Hercules :  10.81.139.215 5C:CF:7F:C4:43:40
+	Las tarjetas conectadas son:
+esps:
+[ { name: 'Orion', ip: '10.81.139.210', mac: '5C:CF:7F:16:CE:F7' } ]
+Orion :  10.81.139.210 5C:CF:7F:16:CE:F7
 	Las tarjetas conectadas son:
 esps:
 [ { name: 'Orion', ip: '10.81.139.210', mac: '5C:CF:7F:16:CE:F7' },
-  { name: 'Hercules',
-    ip: '10.81.139.215',
-    mac: '5C:CF:7F:C4:43:40' } ]
+  { name: 'Orion', ip: '10.81.139.210', mac: '5C:CF:7F:16:CE:F7' } ]
+Listo para actualizar el select
+[2017-03-11T02:14:27.060Z] import pyb
+
+def blink():
+ LED = pyb.LED(1)
+ LED.toggle()
+ return
+
+blink()
+
+
+[2017-03-11T02:14:27.062Z] Orion.py
+[2017-03-11T02:14:27.062Z] 10.81.139.210
+[2017-03-11T02:14:27.062Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:14:27.085Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:14:29.468Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:14:29.652Z] import pyb
+
+def blink():
+ LED = pyb.LED(1)
+ LED.toggle()
+ return
+
+blink()
+
+
+[2017-03-11T02:14:29.652Z] Orion.py
+[2017-03-11T02:14:29.652Z] 10.81.139.210
+[2017-03-11T02:14:29.653Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:14:29.670Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:14:31.852Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:14:40.141Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+time = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh,mm,ss)
+
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+time = get_time(i2c)
+
+command(('MQTT_PUB\r'+str('Hora')+'\r'+str(time)+'\r'),30)
+pyb.delay(50)
+
+
+[2017-03-11T02:14:40.141Z] Orion.py
+[2017-03-11T02:14:40.142Z] 10.81.139.210
+[2017-03-11T02:14:40.142Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:14:40.156Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:14:55.217Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:15:40.571Z] Algún cliente conectado con Sockets
+[2017-03-11T02:16:04.867Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+time = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh, mm, ss)
+
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+time = get_time(i2c)
+
+command(('MQTT_PUB\r'+str('Hora')+'\r'+str(time)+'\r'),30)
+pyb.delay(50)
+
+
+[2017-03-11T02:16:04.867Z] Orion.py
+[2017-03-11T02:16:04.868Z] 10.81.139.210
+[2017-03-11T02:16:04.868Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:16:05.372Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:16:06.136Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:16:15.247Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+time = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh, mm, ss)
+
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+time = get_time(i2c)
+
+command(('MQTT_PUB\r'+str('Hora')+'\r'+str(time)+'\r'),30)
+pyb.delay(50)
+
+
+[2017-03-11T02:16:15.247Z] Orion.py
+[2017-03-11T02:16:15.247Z] 10.81.139.210
+[2017-03-11T02:16:15.247Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:16:15.263Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:16:30.502Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:17:13.270Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+time = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh, mm, ss)
+
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+for count in range(10):
+  time = get_time(i2c)
+
+  command(('MQTT_PUB\r'+str('Hora')+'\r'+str(time)+'\r'),30)
+  pyb.delay(50)
+  pyb.delay(int(900))
+
+
+[2017-03-11T02:17:13.270Z] Orion.py
+[2017-03-11T02:17:13.292Z] 10.81.139.210
+[2017-03-11T02:17:13.292Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:17:13.317Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:17:28.779Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:22:12.337Z] Algún cliente conectado con Sockets
+[2017-03-11T02:24:48.775Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+set2 = None
+item = None
+tiempo = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh, mm, ss)
+
+def save_time(self, YY, MM, DD, wday, hh, mm, ss, subsec):
+ self.mem_write(dec2bcd(ss), DS3231_I2C_ADDR, 0)
+ self.mem_write(dec2bcd(mm), DS3231_I2C_ADDR, 1)
+ self.mem_write(dec2bcd(hh), DS3231_I2C_ADDR, 2)
+ self.mem_write(dec2bcd(DD), DS3231_I2C_ADDR, 4)
+ self.mem_write(dec2bcd(MM) | 0b10000000, DS3231_I2C_ADDR, 5)
+ self.mem_write(dec2bcd(YY-2000), DS3231_I2C_ADDR, 6)
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+set2 = save_time(item)
+
+for count in range(10):
+  tiempo = get_time(item)
+
+  command(('MQTT_PUB\r'+str('Hora')+'\r'+str(tiempo)+'\r'),30)
+  pyb.delay(50)
+  pyb.delay(int(500))
+
+
+[2017-03-11T02:24:48.776Z] Orion.py
+[2017-03-11T02:24:48.776Z] 10.81.139.210
+[2017-03-11T02:24:48.776Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:24:48.791Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:25:06.467Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:26:45.902Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+set2 = None
+tiempo = None
+item = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh, mm, ss)
+
+def save_time(self, YY, MM, DD, wday, hh, mm, ss, subsec):
+ self.mem_write(dec2bcd(ss), DS3231_I2C_ADDR, 0)
+ self.mem_write(dec2bcd(mm), DS3231_I2C_ADDR, 1)
+ self.mem_write(dec2bcd(hh), DS3231_I2C_ADDR, 2)
+ self.mem_write(dec2bcd(DD), DS3231_I2C_ADDR, 4)
+ self.mem_write(dec2bcd(MM) | 0b10000000, DS3231_I2C_ADDR, 5)
+ self.mem_write(dec2bcd(YY-2000), DS3231_I2C_ADDR, 6)
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+set2 = save_time(i2c)
+
+for count in range(10):
+  tiempo = get_time(item)
+
+  command(('MQTT_PUB\r'+str('Hora')+'\r'+str(tiempo)+'\r'),30)
+  pyb.delay(50)
+  pyb.delay(int(500))
+
+
+[2017-03-11T02:26:45.903Z] Orion.py
+[2017-03-11T02:26:45.903Z] 10.81.139.210
+[2017-03-11T02:26:45.904Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:26:45.922Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:27:03.657Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:40:24.916Z] Algún cliente conectado con Sockets
+[2017-03-11T02:43:59.481Z] Algún cliente conectado con Sockets
+[2017-03-11T02:45:22.083Z] save__begin
+save__dataimport pyb
+save__datapyb.LED(1).on()
+save__data
+save__data
+save__datapyb.delay(1000)
+save__datafrom pyb import Pin
+save__datapyb.LED(1).off()
+save__datai2c = None
+save__dataset2 = None
+save__data
+save__data
+save__datafrom pyb import UART
+save__datauart = UART(1,115200)
+save__datas2e = Pin('CONFIG',Pin.OUT_PP)
+save__datadef command(dataToSend,sleepTime):
+save__data uart.writechar(ord('\r'))
+save__data pyb.delay(sleepTime)
+save__data s2e.high()
+save__data for x in dataToSend:
+save__data  uart.writechar(ord(x))
+save__data  pyb.delay(sleepTime)
+save__data s2e.low()
+save__data print('')
+save__data
+save__datacommand(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+save__datapyb.delay(50)
+save__datafrom pyb import I2C
+save__dataDS3231_I2C_ADDR = 104
+save__data
+save__datadef bcd2dec(bcd):
+save__data return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+save__data
+save__datadef dec2bcd(dec):
+save__data tens, units = divmod(dec, 10)
+save__data return (tens << 4) + units
+save__data
+save__datadef get_time_rtc(self):
+save__data timebuf = bytearray(7)
+save__data data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+save__data ss = bcd2dec(data[0])
+save__data mm = bcd2dec(data[1])
+save__data if data[2] & 0x40:
+save__data 	hh = bcd2dec(data[2] & 0x1f)
+save__data 	if data[2] & 0x20:
+save__data 		hh += 12
+save__data else:
+save__data 	hh = bcd2dec(data[2])
+save__data wday = data[3]
+save__data DD = bcd2dec(data[4])
+save__data MM = bcd2dec(data[5] & 0x1f)
+save__data YY = bcd2dec(data[6])
+save__data if data[5] & 0x80:
+save__data 	YY += 2000
+save__data return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+save__data
+save__datadef get_time(self):
+save__data timebuf = bytearray(7)
+save__data data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+save__data ss = bcd2dec(data[0])
+save__data mm = bcd2dec(data[1])
+save__data if data[2] & 0x40:
+save__data 	hh = bcd2dec(data[2] & 0x1f)
+save__data 	if data[2] & 0x20:
+save__data 		hh += 12
+save__data else:
+save__data 	hh = bcd2dec(data[2])
+save__data return (hh, mm, ss)
+save__data
+save__datadef save_time(self, YY, MM, DD, wday, hh, mm, ss, subsec):
+save__data self.mem_write(dec2bcd(ss), DS3231_I2C_ADDR, 0)
+save__data self.mem_write(dec2bcd(mm), DS3231_I2C_ADDR, 1)
+save__data self.mem_write(dec2bcd(hh), DS3231_I2C_ADDR, 2)
+save__data self.mem_write(dec2bcd(DD), DS3231_I2C_ADDR, 4)
+save__data self.mem_write(dec2bcd(MM) | 0b10000000, DS3231_I2C_ADDR, 5)
+save__data self.mem_write(dec2bcd(YY-2000), DS3231_I2C_ADDR, 6)
+save__datai2c = I2C(1,I2C.MASTER, baudrate=400000)
+save__dataset2 = save_time(i2c, 2017, 3, 10, 0, 21, 45, 0, 0 )
+save__data
+save__data
+save__end
+
+[2017-03-11T02:45:22.086Z] Orion.py
+[2017-03-11T02:45:22.087Z] 10.81.139.210
+[2017-03-11T02:45:22.087Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:45:22.112Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:45:28.629Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+set2 = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh, mm, ss)
+
+def save_time(self, YY, MM, DD, wday, hh, mm, ss, subsec):
+ self.mem_write(dec2bcd(ss), DS3231_I2C_ADDR, 0)
+ self.mem_write(dec2bcd(mm), DS3231_I2C_ADDR, 1)
+ self.mem_write(dec2bcd(hh), DS3231_I2C_ADDR, 2)
+ self.mem_write(dec2bcd(DD), DS3231_I2C_ADDR, 4)
+ self.mem_write(dec2bcd(MM) | 0b10000000, DS3231_I2C_ADDR, 5)
+ self.mem_write(dec2bcd(YY-2000), DS3231_I2C_ADDR, 6)
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+set2 = save_time(i2c, 2017, 3, 10, 0, 21, 45, 0, 0 )
+
+
+[2017-03-11T02:45:28.630Z] Orion.py
+[2017-03-11T02:45:28.630Z] 10.81.139.210
+[2017-03-11T02:45:28.630Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:45:28.643Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:45:29.889Z] exec error: Error: Command failed: ./server/runMain.py 10.81.139.210 3335 ./server/Orion.py
+Traceback (most recent call last):
+  File "./server/runMain.py", line 28, in <module>
+    main()
+  File "./server/runMain.py", line 24, in main
+    s.send(line+'\r')
+socket.error: [Errno 32] Broken pipe
+
+[2017-03-11T02:45:36.033Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+set2 = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh, mm, ss)
+
+def save_time(self, YY, MM, DD, wday, hh, mm, ss, subsec):
+ self.mem_write(dec2bcd(ss), DS3231_I2C_ADDR, 0)
+ self.mem_write(dec2bcd(mm), DS3231_I2C_ADDR, 1)
+ self.mem_write(dec2bcd(hh), DS3231_I2C_ADDR, 2)
+ self.mem_write(dec2bcd(DD), DS3231_I2C_ADDR, 4)
+ self.mem_write(dec2bcd(MM) | 0b10000000, DS3231_I2C_ADDR, 5)
+ self.mem_write(dec2bcd(YY-2000), DS3231_I2C_ADDR, 6)
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+set2 = save_time(i2c, 2017, 3, 10, 0, 21, 45, 0, 0 )
+
+
+[2017-03-11T02:45:36.033Z] Orion.py
+[2017-03-11T02:45:36.033Z] 10.81.139.210
+[2017-03-11T02:45:36.034Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:45:36.053Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:45:36.483Z] exec error: Error: Command failed: ./server/runMain.py 10.81.139.210 3335 ./server/Orion.py
+Traceback (most recent call last):
+  File "./server/runMain.py", line 28, in <module>
+    main()
+  File "./server/runMain.py", line 24, in main
+    s.send(line+'\r')
+socket.error: [Errno 32] Broken pipe
+
+[2017-03-11T02:45:51.812Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:48:02.814Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+set2 = None
+Hora = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh, mm, ss)
+
+def save_time(self, YY, MM, DD, wday, hh, mm, ss, subsec):
+ self.mem_write(dec2bcd(ss), DS3231_I2C_ADDR, 0)
+ self.mem_write(dec2bcd(mm), DS3231_I2C_ADDR, 1)
+ self.mem_write(dec2bcd(hh), DS3231_I2C_ADDR, 2)
+ self.mem_write(dec2bcd(DD), DS3231_I2C_ADDR, 4)
+ self.mem_write(dec2bcd(MM) | 0b10000000, DS3231_I2C_ADDR, 5)
+ self.mem_write(dec2bcd(YY-2000), DS3231_I2C_ADDR, 6)
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+set2 = save_time(i2c, 2017, 3, 10, 0, 21, 45, 0, 0 )
+
+for count in range(10):
+  Hora = get_time(i2c)
+
+  command(('MQTT_PUB\r'+str('Hora')+'\r'+str(Hora)+'\r'),30)
+  pyb.delay(50)
+  pyb.delay(int(500))
+
+
+[2017-03-11T02:48:02.814Z] Orion.py
+[2017-03-11T02:48:02.814Z] 10.81.139.210
+[2017-03-11T02:48:02.814Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:48:02.830Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:48:20.602Z] Se ha cargado correctamente el archivo: Orion.py
+[2017-03-11T02:48:50.388Z] import pyb
+pyb.LED(1).on()
+
+
+from pyb import Pin
+pyb.LED(1).off()
+i2c = None
+Hora = None
+
+
+from pyb import UART
+uart = UART(1,115200)
+s2e = Pin('CONFIG',Pin.OUT_PP)
+def command(dataToSend,sleepTime):
+ uart.writechar(ord('\r'))
+ pyb.delay(sleepTime)
+ s2e.high()
+ for x in dataToSend:
+  uart.writechar(ord(x))
+  pyb.delay(sleepTime)
+ s2e.low()
+ print('')
+
+command(('MQTT_INIT\r'+str('10.81.139.2')+'\r'+str('1883')+'\r'+str('iot')+'\r'),30)
+pyb.delay(50)
+from pyb import I2C
+DS3231_I2C_ADDR = 104
+
+def bcd2dec(bcd):
+ return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
+
+def dec2bcd(dec):
+ tens, units = divmod(dec, 10)
+ return (tens << 4) + units
+
+def get_time_rtc(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ wday = data[3]
+ DD = bcd2dec(data[4])
+ MM = bcd2dec(data[5] & 0x1f)
+ YY = bcd2dec(data[6])
+ if data[5] & 0x80:
+ 	YY += 2000
+ return (YY, MM, DD, hh, mm, ss, wday -1, 0)
+
+def get_time(self):
+ timebuf = bytearray(7)
+ data = self.mem_read(timebuf, DS3231_I2C_ADDR, 0)
+ ss = bcd2dec(data[0])
+ mm = bcd2dec(data[1])
+ if data[2] & 0x40:
+ 	hh = bcd2dec(data[2] & 0x1f)
+ 	if data[2] & 0x20:
+ 		hh += 12
+ else:
+ 	hh = bcd2dec(data[2])
+ return (hh, mm, ss)
+
+def save_time(self, YY, MM, DD, wday, hh, mm, ss, subsec):
+ self.mem_write(dec2bcd(ss), DS3231_I2C_ADDR, 0)
+ self.mem_write(dec2bcd(mm), DS3231_I2C_ADDR, 1)
+ self.mem_write(dec2bcd(hh), DS3231_I2C_ADDR, 2)
+ self.mem_write(dec2bcd(DD), DS3231_I2C_ADDR, 4)
+ self.mem_write(dec2bcd(MM) | 0b10000000, DS3231_I2C_ADDR, 5)
+ self.mem_write(dec2bcd(YY-2000), DS3231_I2C_ADDR, 6)
+i2c = I2C(1,I2C.MASTER, baudrate=400000)
+for count in range(100):
+  Hora = get_time(i2c)
+
+  command(('MQTT_PUB\r'+str('Hora')+'\r'+str(Hora)+'\r'),30)
+  pyb.delay(50)
+  pyb.delay(int(500))
+
+
+[2017-03-11T02:48:50.388Z] Orion.py
+[2017-03-11T02:48:50.388Z] 10.81.139.210
+[2017-03-11T02:48:50.388Z] 5C:CF:7F:16:CE:F7
+[2017-03-11T02:48:50.404Z] Se ha escrito correctamente en Orion.py
+[2017-03-11T02:49:07.279Z] Se ha cargado correctamente el archivo: Orion.py
