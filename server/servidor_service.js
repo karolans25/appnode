@@ -162,6 +162,10 @@ function readConfig() {
 		cards[config.ESP4.ip] = config.ESP4.name;
 		cards[config.ESP5.ip] = config.ESP5.name;
 		cards[config.ESP6.ip] = config.ESP6.name;
+		cards[config.ESP7.ip] = config.ESP7.name;
+		cards[config.ESP8.ip] = config.ESP8.name;
+		cards[config.ESP9.ip] = config.ESP9.name;
+		cards[config.ESP10.ip] = config.ESP10.name;
 		
 	//console.log('Tarjeta : ' + cards[config.ESP1.ip]);
 		
