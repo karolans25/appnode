@@ -10,8 +10,9 @@ Contents:
 
 .. toctree::
     ./quickReference/index_reference.rst
-    ./guias/index_guias.rst
-    ./basic_information/index_informacion.rst
+    ./Applications/index_informacion.rst
+    ./Glossary/index_glosario.rst
+
 
 Indices and tables
 ==================

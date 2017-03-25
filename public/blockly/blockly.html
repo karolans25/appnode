@@ -8,6 +8,7 @@
   <script src="dependencies/python_compressed.js"></script>
   <script src="msg/js/es.js"></script>
   <script src="./modulesMicropython/iot.js"></script>
+  <script src="./modulesMicropython/dht11.js"></script>
   <script src="./modulesMicropython/gpio.js"></script>
   <script src="./modulesMicropython/actuadores.js"></script>
   <script src="./modulesMicropython/sensores.js"></script>
@@ -423,6 +424,21 @@ height=520px, initial-scale=1">
       <block type='task_config'></block>
       <block type='wifi_sta'></block>
     </category>
+    <category type='com' name="I2C" colour="210">
+      <block type='library_i2c'></block>
+      <block type='i2c_init'></block>
+      <block type='i2c_scan'></block>
+      <block type='i2c_mem_read'></block>
+      <block type='bcd2dec'></block>
+      <block type='dec2bcd'></block>
+      <block type='gettime'></block>
+      <block type='settime'></block>
+    </category>
+   <!--  <category type='dht' name="DHT11" colour="210">
+      <block type='start_dht'></block>
+      <block type='task_dht'></block>
+      <block type='wifi_sta'></block>
+    </category> -->
   </xml>
 
   <script>

@@ -1,0 +1,39 @@
+var nmap = require('libnmap')
+  , timeout = 1024 * 1024
+  , opts = {
+  	  //json: false,
+      range: [
+        '192.168.42.20-30',
+      ],
+      ports: '3335',
+    };
+
+// Crea el array para tarjetas
+esps = [];
+
+nmap.scan(opts, function(err, report) {
+  if (err) throw new Error(err)
+  
+  for (var item in report) {
+  	//console.log(item);
+  	//console.log(JSON.stringify(report[item].host));
+  	for (var item1 in report[item].host) {
+  		ipadd = report[item].host[item1].address[0].item["addr"];
+  		mac = report[item].host[item1].address[1].item["addr"];
+  		//console.log(ipadd + " " + mac);
+  		//console.log(report[item].host[item1].address[1].item["addr"]);
+  		var isCard = { 	
+						ip: ipadd,
+						mac: mac
+		};
+		
+		esps.push(isCard);		
+
+		
+  	}
+
+  	console.log(esps);
+
+  }
+
+});
