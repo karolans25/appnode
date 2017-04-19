@@ -1,12 +1,3 @@
-# MediaLab #
-
-![MediaLab](./mediaLabBoard_v2.1.svg)
-
-MediLab es una tarjeta electrónica de desarrollo programable, la cual permite el uso
-de sensores y actuadores como lo haría un Arduino o cualquier otra plataforma de desarrollo
-con la ventaja de separar las tareas de comunicación y control de hardware a través de 
-microcontroladores diferentes.
-
 # AppNode #
 
 ![AppNode](./appnode.png)
@@ -17,6 +8,16 @@ de una programación sin preocuparse de la sintaxis a partir de bloques gráfico
 posibles por la tarjeta como es el caso de Internet de las cosas. La principal característica de AppNode
 es que se ejecuta como una aplicación al lado del servidor, que en el caso de una aula de clase puede
 ser prestado por una raspberry pi de ejemplo.
+
+# MediaLab #
+
+![MediaLab](./mediaLabBoard_v2.1.svg)
+
+MediLab es una tarjeta electrónica de desarrollo programable, la cual permite el uso
+de sensores y actuadores como lo haría un Arduino o cualquier otra plataforma de desarrollo
+con la ventaja de separar las tareas de comunicación y control de hardware a través de 
+microcontroladores diferentes.
+
 
 # Documentación #
 
