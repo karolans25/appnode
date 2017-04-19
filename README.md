@@ -1,3 +1,23 @@
+# MediaLab #
+
+![MediaLab](./mediaLabBoard_v2.1.svg)
+
+MediLab es una tarjeta electrónica de desarrollo programable, la cual permite el uso
+de sensores y actuadores como lo haría un Arduino o cualquier otra plataforma de desarrollo
+con la ventaja de separar las tareas de comunicación y control de hardware a través de 
+microcontroladores diferentes.
+
+# AppNode #
+
+![AppNode](./appnode.png)
+
+AppNode es un conjunto de software tanto para la tarjeta de desarrollo MediaLab como para la interfaz 
+de usuario que permite su programación, AppNode se desarrolla con el fin de darle la facilidad al usuario
+de una programación sin preocuparse de la sintaxis a partir de bloques gráficos que representan funciones
+posibles por la tarjeta como es el caso de Internet de las cosas. La principal característica de AppNode
+es que se ejecuta como una aplicación al lado del servidor, que en el caso de una aula de clase puede
+ser prestado por una raspberry pi de ejemplo.
+
 # Documentación #
 
 [media_lab](http://docsmedialab.readthedocs.io/es/latest/index.html)
@@ -26,7 +46,6 @@ no lo requieren.
 * git
 * telnet
 * nmap
-* expect
 * mosquitto
 
 Instalación desde repositorios:
